@@ -4,6 +4,7 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using PexelsDotNetSDK.Api;
 using System;
+using System.Configuration;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -54,15 +55,19 @@ namespace DeXcor
         {
             return new ActivationService(this, typeof(Views.MainPage), new Lazy<UIElement>(CreateShell));
         }
-
+        private static async Task NewMethod()
+        {
+            string apiKey = ConfigurationManager.AppSettings["apiKey"];
+            if (!string.IsNullOrEmpty(apiKey))
+            {
+                var pexelsClient = new PexelsClient(apiKey);
+                var result = pexelsClient.CuratedPhotosAsync();
+            }
+        }
         private UIElement CreateShell()
         {
             return new Views.ShellPage();
         }
-        private static async Task NewMethod()
-        {
-            var pexelsClient = new PexelsClient("563492ad6f91700001000001768850934594458b9990ea9808e8d8fb");
-            PexelsDotNetSDK.Models.PhotoPage result = await pexelsClient.CuratedPhotosAsync();
-        }
+
     }
 }

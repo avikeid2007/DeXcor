@@ -18,7 +18,7 @@ namespace DeXcor.Views
 
         private static async Task NewMethod()
         {
-            var pexelsClient = new PexelsClient("563492ad6f91700001000001768850934594458b9990ea9808e8d8fb");
+            var pexelsClient = new PexelsClient("");
             PexelsDotNetSDK.Models.PhotoPage result = await pexelsClient.CuratedPhotosAsync();
         }
     }

@@ -15,7 +15,7 @@
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Margin" Value="48" />
         </Style>
-        <Style x:Name="BorderStyle" TargetType="Border">
+        <Style x:Name="BorderStyle" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Background" Value="#40000000" />
@@ -23,19 +23,18 @@
     </Page.Resources>
     <Grid x:Name="ContentArea">
         <controls:TileControl
-            Grid.Row="1"
-            AnimationDuration="30"
+            AnimationDuration="10"
             AnimationStepX="1"
             AnimationStepY="1"
-            ImageAlignment="None"
-            ImageSource="/Assets/PlaceholderImage.png"
+            ImageAlignment="Left"
+            ImageSource="/Assets/MainGrid.jpg"
             IsAnimated="True"
-            OffsetX="0"
-            OffsetY="0"
+            OffsetX="-3000"
+            OffsetY="1000"
             ScrollOrientation="Both">
-            <Border Style="{StaticResource BorderStyle}">
-                <TextBlock Style="{StaticResource TextBlockStyle}" Text="Simple Content" />
-            </Border>
+            <Button Style="{StaticResource BorderStyle}">
+                <TextBlock Style="{StaticResource TextBlockStyle}" Text="Change Desktop Background" />
+            </Button>
         </controls:TileControl>
     </Grid>
 </Page>

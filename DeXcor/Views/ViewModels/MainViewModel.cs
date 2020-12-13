@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DeXcor.Views.ViewModels
+﻿namespace DeXcor.Views.ViewModels
 {
-    class MainViewModel
+    public class MainViewModel
     {
     }
 }

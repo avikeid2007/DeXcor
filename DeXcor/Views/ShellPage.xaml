@@ -29,19 +29,21 @@
                 Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
             <winui:NavigationViewItem
-                x:Uid="Shell_Main"
                 helpers:NavHelper.NavigateTo="views:MainPage"
-                Icon="Document" />
-            <winui:NavigationViewItem
-                x:Uid="Shell_Gallery"
-                helpers:NavHelper.NavigateTo="views:GalleryPage"
-                Icon="Document" />
-            <winui:NavigationViewItem
-                x:Uid="Shell_Draw"
-                helpers:NavHelper.NavigateTo="views:DrawPage"
-                Icon="Document" />
+                Content="Home"
+                Icon="Home" />
+            <winui:NavigationViewItem x:Uid="Shell_Gallery" helpers:NavHelper.NavigateTo="views:GalleryPage">
+                <winui:NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xEB9F;" />
+                </winui:NavigationViewItem.Icon>
+            </winui:NavigationViewItem>
+            <winui:NavigationViewItem x:Uid="Shell_Draw" helpers:NavHelper.NavigateTo="views:DrawPage">
+                <winui:NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xEE56;" />
+                </winui:NavigationViewItem.Icon>
+            </winui:NavigationViewItem>
         </winui:NavigationView.MenuItems>
-        <!--<i:Interaction.Behaviors>
+        <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior DefaultHeader="{x:Bind Selected.Content, Mode=OneWay}">
                 <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
                     <DataTemplate>
@@ -54,7 +56,7 @@
                     </DataTemplate>
                 </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
             </behaviors:NavigationViewHeaderBehavior>
-        </i:Interaction.Behaviors>-->
+        </i:Interaction.Behaviors>
         <Grid>
             <Frame x:Name="shellFrame" />
         </Grid>
