@@ -32,7 +32,7 @@
             OffsetX="-3000"
             OffsetY="1000"
             ScrollOrientation="Both">
-            <Button Style="{StaticResource BorderStyle}">
+            <Button Command="{x:Bind ViewModel.ChangeBackgroundCommand}" Style="{StaticResource BorderStyle}">
                 <TextBlock Style="{StaticResource TextBlockStyle}" Text="Change Desktop Background" />
             </Button>
         </controls:TileControl>

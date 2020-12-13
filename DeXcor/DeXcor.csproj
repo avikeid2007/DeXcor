@@ -330,6 +330,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="App.config" />
     <None Include="DeXcor_TemporaryKey.pfx" />
     <None Include="Settings.XamlStyler" />
   </ItemGroup>

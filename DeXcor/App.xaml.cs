@@ -2,10 +2,8 @@
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using PexelsDotNetSDK.Api;
 using System;
 using System.Configuration;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -14,22 +12,18 @@ namespace DeXcor
     public sealed partial class App : Application
     {
         private Lazy<ActivationService> _activationService;
-
         private ActivationService ActivationService
         {
             get { return _activationService.Value; }
         }
-
+        public static string ApiKey { get; private set; }
         public App()
         {
             InitializeComponent();
-
-            // TODO WTS: Add your app in the app center and set your secret here. More at https://docs.microsoft.com/appcenter/sdk/getting-started/uwp
             AppCenter.Start("{Your App Secret}", typeof(Analytics), typeof(Crashes));
             UnhandledException += OnAppUnhandledException;
-
-            // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.
             _activationService = new Lazy<ActivationService>(CreateActivationService);
+            GetApiKey();
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -55,13 +49,12 @@ namespace DeXcor
         {
             return new ActivationService(this, typeof(Views.MainPage), new Lazy<UIElement>(CreateShell));
         }
-        private static async Task NewMethod()
+        private static void GetApiKey()
         {
             string apiKey = ConfigurationManager.AppSettings["apiKey"];
             if (!string.IsNullOrEmpty(apiKey))
             {
-                var pexelsClient = new PexelsClient(apiKey);
-                var result = pexelsClient.CuratedPhotosAsync();
+                ApiKey = apiKey;
             }
         }
         private UIElement CreateShell()
