@@ -1,66 +1,47 @@
-﻿using System;
+﻿using DeXcor.Helpers;
+using DeXcor.Services;
+using Microsoft.Toolkit.Uwp.UI.Animations;
+using PexelsDotNetSDK.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
-using DeXcor.Core.Models;
-using DeXcor.Core.Services;
-using DeXcor.Helpers;
-using DeXcor.Services;
-
-using Microsoft.Toolkit.Uwp.UI.Animations;
-
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace DeXcor.Views
 {
-    public sealed partial class GalleryPage : Page, INotifyPropertyChanged
+    public sealed partial class GalleryPage : Windows.UI.Xaml.Controls.Page, INotifyPropertyChanged
     {
         public const string GallerySelectedIdKey = "GallerySelectedIdKey";
-
-        public ObservableCollection<SampleImage> Source { get; } = new ObservableCollection<SampleImage>();
-
+        public ObservableCollection<Photo> Source { get; set; }
         public GalleryPage()
         {
             InitializeComponent();
             Loaded += GalleryPage_OnLoaded;
-        }
 
-        private async void GalleryPage_OnLoaded(object sender, RoutedEventArgs e)
+        }
+        private void GalleryPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            Source.Clear();
-
-            // TODO WTS: Replace this with your actual data
-            var data = await SampleDataService.GetImageGalleryDataAsync("ms-appx:///Assets");
-
-            foreach (var item in data)
-            {
-                Source.Add(item);
-            }
+            ImageDataService.ImageCollection = new ObservableCollection<Photo>(ImageDataService.CuratedWallpaperCollection);
+            ImgGridView.ItemsSource = ImageDataService.ImageCollection;
         }
-
         private void ImagesGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var selected = e.ClickedItem as SampleImage;
-            ImagesNavigationHelper.AddImageId(GallerySelectedIdKey, selected.ID);
+            var selected = e.ClickedItem as Photo;
+            ImagesNavigationHelper.AddImageId(GallerySelectedIdKey, selected.id);
             NavigationService.Frame.SetListDataItemForNextConnectedAnimation(selected);
-            NavigationService.Navigate<GalleryDetailPage>(selected.ID);
+            NavigationService.Navigate<GalleryDetailPage>(selected.id);
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
+        private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             if (Equals(storage, value))
             {
                 return;
             }
-
             storage = value;
             OnPropertyChanged(propertyName);
         }
-
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

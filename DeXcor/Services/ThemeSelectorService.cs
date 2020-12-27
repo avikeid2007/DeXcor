@@ -1,11 +1,15 @@
-﻿using System;
+﻿using DeXcor.Helpers;
+using PexelsDotNetSDK.Api;
+using PexelsDotNetSDK.Models;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
-
-using DeXcor.Helpers;
-
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace DeXcor.Services
@@ -59,6 +63,32 @@ namespace DeXcor.Services
         private static async Task SaveThemeInSettingsAsync(ElementTheme theme)
         {
             await ApplicationData.Current.LocalSettings.SaveAsync(SettingsKey, theme.ToString());
+        }
+    }
+    public static class ImageDataService
+    {
+        public static string ApiKey { get; set; }
+        public static PhotoPage photoPage { get; set; }
+        public static ObservableCollection<Photo> ImageCollection { get; set; }
+        public static List<Photo> CuratedWallpaperCollection { get; set; }
+        public static List<Photo> UsedList;
+        public static async Task FetchWallPaperListAsync(int page = 1)
+        {
+            try
+            {
+                CuratedWallpaperCollection = null;
+                if (!string.IsNullOrEmpty(ApiKey))
+                {
+                    var pexelsClient = new PexelsClient(ApiKey);
+                    photoPage = await pexelsClient.CuratedPhotosAsync(page: page, pageSize: 80);
+                    CuratedWallpaperCollection = photoPage.photos.OrderBy(x => Guid.NewGuid()).ToList();
+
+                }
+            }
+            catch
+            {
+                await new MessageDialog("Ops, Something went wrong.").ShowAsync();
+            }
         }
     }
 }

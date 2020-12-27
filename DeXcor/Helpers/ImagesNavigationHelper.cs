@@ -5,15 +5,15 @@ namespace DeXcor.Helpers
 {
     public static class ImagesNavigationHelper
     {
-        private static Dictionary<string, Stack<string>> _imageGalleriesHistories = new Dictionary<string, Stack<string>>();
+        private static Dictionary<string, Stack<int>> _imageGalleriesHistories = new Dictionary<string, Stack<int>>();
 
-        public static void AddImageId(string imageGalleryId, string imageId)
+        public static void AddImageId(string imageGalleryId, int imageId)
         {
             var stack = GetStack(imageGalleryId);
             stack.Push(imageId);
         }
 
-        public static void UpdateImageId(string imageGalleryId, string imageId)
+        public static void UpdateImageId(string imageGalleryId, int imageId)
         {
             var stack = GetStack(imageGalleryId);
             if (stack.Any())
@@ -24,10 +24,10 @@ namespace DeXcor.Helpers
             stack.Push(imageId);
         }
 
-        public static string GetImageId(string imageGalleryId)
+        public static int GetImageId(string imageGalleryId)
         {
             var stack = GetStack(imageGalleryId);
-            return stack.Any() ? stack.Peek() : string.Empty;
+            return stack.Any() ? stack.Peek() : 0;
         }
 
         public static void RemoveImageId(string imageGalleryId)
@@ -39,13 +39,12 @@ namespace DeXcor.Helpers
             }
         }
 
-        private static Stack<string> GetStack(string imageGalleryId)
+        private static Stack<int> GetStack(string imageGalleryId)
         {
             if (!_imageGalleriesHistories.Keys.Contains(imageGalleryId))
             {
-                _imageGalleriesHistories.Add(imageGalleryId, new Stack<string>());
+                _imageGalleriesHistories.Add(imageGalleryId, new Stack<int>());
             }
-
             return _imageGalleriesHistories[imageGalleryId];
         }
     }

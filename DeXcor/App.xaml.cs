@@ -12,11 +12,13 @@ namespace DeXcor
     public sealed partial class App : Application
     {
         private Lazy<ActivationService> _activationService;
+
         private ActivationService ActivationService
         {
             get { return _activationService.Value; }
         }
-        public static string ApiKey { get; private set; }
+
+
         public App()
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace DeXcor
         {
             if (!args.PrelaunchActivated)
             {
+                await ImageDataService.FetchWallPaperListAsync();
                 await ActivationService.ActivateAsync(args);
             }
         }
@@ -54,9 +57,10 @@ namespace DeXcor
             string apiKey = ConfigurationManager.AppSettings["apiKey"];
             if (!string.IsNullOrEmpty(apiKey))
             {
-                ApiKey = apiKey;
+                ImageDataService.ApiKey = apiKey;
             }
         }
+
         private UIElement CreateShell()
         {
             return new Views.ShellPage();

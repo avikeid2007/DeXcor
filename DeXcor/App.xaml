@@ -16,6 +16,10 @@
                 <ResourceDictionary Source="/Styles/Image.xaml" />
                 <ResourceDictionary Source="/Styles/Page.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <x:Double x:Key="NarrowMinWidth">0</x:Double>
+            <x:Double x:Key="NormalMinWidth">640</x:Double>
+            <x:Double x:Key="WideMinWidth">900</x:Double>
+            <x:Double x:Key="XWideMinWidth">1300</x:Double>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

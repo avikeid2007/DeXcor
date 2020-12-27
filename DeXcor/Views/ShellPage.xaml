@@ -14,7 +14,7 @@
 
     <winui:NavigationView
         x:Name="navigationView"
-        Background="{ThemeResource SystemControlBackgroundAltHighBrush}"
+        Background="{ThemeResource SystemControlAcrylicWindowBrush}"
         IsBackButtonVisible="Visible"
         IsBackEnabled="{x:Bind IsBackEnabled, Mode=OneWay}"
         IsSettingsVisible="True"

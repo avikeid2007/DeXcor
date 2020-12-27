@@ -9,11 +9,11 @@
     mc:Ignorable="d">
     <Page.Resources>
         <Style x:Name="TextBlockStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="40" />
+
             <Setter Property="FontFamily" Value="Segoe UI" />
             <Setter Property="FontWeight" Value="Light" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="Margin" Value="48" />
+
         </Style>
         <Style x:Name="BorderStyle" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -32,9 +32,163 @@
             OffsetX="-3000"
             OffsetY="1000"
             ScrollOrientation="Both">
-            <Button Command="{x:Bind ViewModel.ChangeBackgroundCommand}" Style="{StaticResource BorderStyle}">
-                <TextBlock Style="{StaticResource TextBlockStyle}" Text="Change Desktop Background" />
-            </Button>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Command="{x:Bind ViewModel.ChangeBackgroundCommand}" Style="{StaticResource BorderStyle}">
+                    <TextBlock
+                        x:Name="BtnBackgroundText"
+                        Margin="48"
+                        FontSize="40"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="Change Desktop Background" />
+                </Button>
+                <controls:Loading x:Name="LoadingControl" IsLoading="{x:Bind ViewModel.IsBusy, Mode=OneWay}">
+                    <StackPanel Padding="12" Orientation="Horizontal">
+                        <Grid Margin="0,0,8,0">
+                            <Image
+                                x:Name="PhotoCtrl"
+                                Height="50"
+                                Source="{x:Bind ViewModel.SelectedPhoto.source.tiny, Mode=OneWay}" />
+                            <ProgressRing Foreground="White" IsActive="True" />
+                        </Grid>
+                        <TextBlock
+                            x:Name="HeaderTxt"
+                            VerticalAlignment="Center"
+                            FontSize="{StaticResource LargeFontSize}"
+                            Foreground="White"
+                            Text="It's ok, we are working on it :)" />
+                    </StackPanel>
+                </controls:Loading>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="{Binding ElementName=HeaderTxt, Path=FontSize}"
+                    Foreground="White"
+                    Text="A new background is set now."
+                    Visibility="{x:Bind ViewModel.IsNewBackground, Mode=OneWay}" />
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Visibility="{x:Bind ViewModel.IsNewBackground, Mode=OneWay}">
+
+                    <Image
+                        Height="{Binding ElementName=PhotoCtrl, Path=Height}"
+                        Margin="0,8,0,0"
+                        VerticalAlignment="Center"
+                        Source="{x:Bind ViewModel.SelectedPhoto.source.tiny, Mode=OneWay}" />
+                    <StackPanel VerticalAlignment="Center">
+                        <HyperlinkButton
+                            x:Name="LinkBtn"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            FontSize="{StaticResource MediumFontSize}"
+                            Foreground="White"
+                            NavigateUri="{x:Bind ViewModel.SelectedPhoto.photographerUrl, Mode=OneWay}">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon
+                                    Margin="4,4,0,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    Glyph="&#xEC80;" />
+                                <TextBlock
+                                    Margin="{StaticResource XXSmallLeftMargin}"
+                                    VerticalAlignment="Center"
+                                    Text=" By :" />
+                                <TextBlock
+                                    Margin="{StaticResource XXSmallLeftMargin}"
+                                    VerticalAlignment="Center"
+                                    Text="{x:Bind ViewModel.SelectedPhoto.photographer, Mode=OneWay}" />
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <HyperlinkButton
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            FontSize="{Binding ElementName=LinkBtn, Path=FontSize}"
+                            Foreground="White"
+                            NavigateUri="{x:Bind ViewModel.SelectedPhoto.url, Mode=OneWay}">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon
+                                    Margin="4,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    Glyph="&#xF69E;" />
+                                <TextBlock
+                                    Margin="{StaticResource XXSmallLeftMargin}"
+                                    VerticalAlignment="Center"
+                                    Text=" By :" />
+                                <TextBlock
+                                    Margin="{StaticResource XXSmallLeftMargin}"
+                                    VerticalAlignment="Center"
+                                    Text="Pexels.com" />
+                            </StackPanel>
+                        </HyperlinkButton>
+                    </StackPanel>
+
+                </StackPanel>
+            </StackPanel>
+
         </controls:TileControl>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
+                <VisualState x:Name="VisualStateNarrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BtnBackgroundText.FontSize" Value="16" />
+                        <Setter Target="BtnBackgroundText.Margin" Value="24" />
+                        <Setter Target="HeaderTxt.FontSize" Value="{StaticResource MediumFontSize}" />
+                        <Setter Target="PhotoCtrl.Height" Value="36" />
+                        <Setter Target="LinkBtn.FontSize" Value="{StaticResource SmallFontSize}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateNormal">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NormalMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BtnBackgroundText.FontSize" Value="24" />
+                        <Setter Target="BtnBackgroundText.Margin" Value="32" />
+                        <Setter Target="HeaderTxt.FontSize" Value="{StaticResource MediumFontSize}" />
+                        <Setter Target="PhotoCtrl.Height" Value="36" />
+                        <Setter Target="LinkBtn.FontSize" Value="{StaticResource SmallFontSize}" />
+
+                        <!--<Setter Target="IpDerailAreaGrid.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="ConnectionStatusGrid.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="NetworkConnectionGrid.Visibility" Value="Collapsed" />
+                        <Setter Target="NetworkAdaptersHeader.Visibility" Value="Collapsed" />
+                        <Setter Target="PingCollectionList.(Grid.Column)" Value="0" />
+                        <Setter Target="PingCollectionList.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="PingCollectionList.(Grid.Row)" Value="3" />-->
+                        <!--<Setter Target="GridPocoOutput.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="GridPocoSetting.(Grid.RowSpan)" Value="3" />-->
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateWide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BtnBackgroundText.FontSize" Value="32" />
+                        <Setter Target="BtnBackgroundText.Margin" Value="40" />
+                        <Setter Target="HeaderTxt.FontSize" Value="{StaticResource LargeFontSize}" />
+                        <Setter Target="PhotoCtrl.Height" Value="44" />
+                        <Setter Target="LinkBtn.FontSize" Value="{StaticResource MediumFontSize}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateXWide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource XWideMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BtnBackgroundText.FontSize" Value="40" />
+                        <Setter Target="BtnBackgroundText.Margin" Value="48" />
+                        <Setter Target="HeaderTxt.FontSize" Value="{StaticResource LargeFontSize}" />
+                        <Setter Target="PhotoCtrl.Height" Value="50" />
+                        <Setter Target="LinkBtn.FontSize" Value="{StaticResource MediumFontSize}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

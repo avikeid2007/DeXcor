@@ -1,38 +1,31 @@
-﻿using System;
+﻿using DeXcor.Helpers;
+using DeXcor.Services;
+using Microsoft.Toolkit.Uwp.UI.Animations;
+using PexelsDotNetSDK.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-
-using DeXcor.Core.Models;
-using DeXcor.Core.Services;
-using DeXcor.Helpers;
-using DeXcor.Services;
-
-using Microsoft.Toolkit.Uwp.UI.Animations;
-
 using Windows.System;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace DeXcor.Views
 {
-    public sealed partial class GalleryDetailPage : Page, INotifyPropertyChanged
+    public sealed partial class GalleryDetailPage : Windows.UI.Xaml.Controls.Page, INotifyPropertyChanged
     {
-        private object _selectedImage;
+        private Photo _selectedImage;
 
-        public object SelectedImage
+        public Photo SelectedImage
         {
             get => _selectedImage;
             set
             {
                 Set(ref _selectedImage, value);
-                ImagesNavigationHelper.UpdateImageId(GalleryPage.GallerySelectedIdKey, ((SampleImage)SelectedImage).ID);
+                ImagesNavigationHelper.UpdateImageId(GalleryPage.GallerySelectedIdKey, SelectedImage.id);
             }
         }
-
-        public ObservableCollection<SampleImage> Source { get; } = new ObservableCollection<SampleImage>();
+        public ObservableCollection<Photo> Source { get; } = new ObservableCollection<Photo>(ImageDataService.ImageCollection);
 
         public GalleryDetailPage()
         {
@@ -42,27 +35,16 @@ namespace DeXcor.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            Source.Clear();
-
-            // TODO WTS: Replace this with your actual data
-            var data = await SampleDataService.GetImageGalleryDataAsync("ms-appx:///Assets");
-
-            foreach (var item in data)
+            if (e.Parameter is int selectedImageID && e.NavigationMode == NavigationMode.New)
             {
-                Source.Add(item);
-            }
-
-            var selectedImageID = e.Parameter as string;
-            if (!string.IsNullOrEmpty(selectedImageID) && e.NavigationMode == NavigationMode.New)
-            {
-                SelectedImage = Source.FirstOrDefault(i => i.ID == selectedImageID);
+                SelectedImage = Source.FirstOrDefault(i => i.id == selectedImageID);
             }
             else
             {
                 selectedImageID = ImagesNavigationHelper.GetImageId(GalleryPage.GallerySelectedIdKey);
-                if (!string.IsNullOrEmpty(selectedImageID))
+                if (selectedImageID != 0)
                 {
-                    SelectedImage = Source.FirstOrDefault(i => i.ID == selectedImageID);
+                    SelectedImage = Source.FirstOrDefault(i => i.id == selectedImageID);
                 }
             }
         }
@@ -88,7 +70,7 @@ namespace DeXcor.Views
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
+        private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             if (Equals(storage, value))
             {
