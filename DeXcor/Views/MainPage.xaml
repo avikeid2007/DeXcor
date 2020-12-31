@@ -119,7 +119,7 @@
                                 <TextBlock
                                     Margin="{StaticResource XXSmallLeftMargin}"
                                     VerticalAlignment="Center"
-                                    Text="Pexels.com" />
+                                    Text="Pexels" />
                             </StackPanel>
                         </HyperlinkButton>
                     </StackPanel>

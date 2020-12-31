@@ -10,8 +10,14 @@
     mc:Ignorable="d">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" />
         <FlipView
             x:Name="gallery"
+            Grid.Row="1"
             animations:Connected.AnchorElement="{Binding ElementName=detailImage}"
             animations:Connected.Key="galleryAnimationKey"
             ItemsSource="{x:Bind Source, Mode=OneWay}"

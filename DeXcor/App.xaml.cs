@@ -32,7 +32,7 @@ namespace DeXcor
         {
             if (!args.PrelaunchActivated)
             {
-                await ImageDataService.FetchWallPaperListAsync();
+                await ImageDataService.FetchHomeWallPaperListAsync(new Random().Next(1, 5));
                 await ActivationService.ActivateAsync(args);
             }
         }

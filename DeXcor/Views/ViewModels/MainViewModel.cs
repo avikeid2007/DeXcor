@@ -116,7 +116,7 @@ namespace DeXcor.Views.ViewModels
                 var photo = ImageDataService.CuratedWallpaperCollection.FirstOrDefault(x => !ImageDataService.UsedList.Contains(x));
                 if (photo == null)
                 {
-                    await ImageDataService.FetchWallPaperListAsync(page: ImageDataService.photoPage.page + 1);
+                    await ImageDataService.FetchHomeWallPaperListAsync(page: ImageDataService.photoPage.page + 1);
                     return await GetNewPhotoAsync();
                 }
                 else

@@ -11,46 +11,63 @@
     NavigationCacheMode="Required"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="SearchHeader" x:DataType="src:ImageDataService">
+            <Grid HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    Width="160" TextChanged="TextBox_TextChanged"   
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    KeyDown="TextBox_KeyDownAsync" />
+                <AppBarButton
+                    Grid.Column="1"
+                    Width="40"
+                    Height="40"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="AppBarButton_Click"
+                    Icon="Find" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="Pagination">
+            <Grid HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
 
+                <AppBarButton
+                    Grid.Column="1"
+                    Width="40"
+                    Height="40"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="1" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
     <Grid x:Name="ContentArea">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Pivot>
-            <PivotItem Header="Curated" />
-            <PivotItem Header="Nature" />
-            <PivotItem Header="Technology" />
-            <Pivot.RightHeader>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox
-                        Width="160"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center" />
-                    <AppBarButton
-                        Grid.Column="1"
-                        Width="40"
-                        Height="40"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Icon="Find" />
-                </Grid>
-            </Pivot.RightHeader>
-        </Pivot>
-        <GridView x:Name="ImgGridView"
+        <Pivot
+            ItemTemplate="{StaticResource Pagination}"
+            ItemsSource="{x:Bind src:ImageDataService.PhotoType}"
+            SelectionChanged="Pivot_SelectionChanged" />
+        <GridView
+            x:Name="ImgGridView"
             Grid.Row="1"
             Margin="{StaticResource MediumLeftTopRightBottomMargin}"
-            Padding="{StaticResource MediumLeftRightMargin}"
             animations:Connected.ListItemElementName="thumbnailImage"
             animations:Connected.ListItemKey="galleryAnimationKey"
             animations:ReorderGridAnimation.Duration="1000"
             IsItemClickEnabled="True"
             ItemClick="ImagesGridView_ItemClick"
-           
             SelectionMode="None">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Photo">
