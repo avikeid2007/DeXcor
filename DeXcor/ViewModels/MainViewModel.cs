@@ -13,7 +13,7 @@ using Windows.Storage.Streams;
 using Windows.System.UserProfile;
 using Windows.Web.Http;
 
-namespace DeXcor.Views.ViewModels
+namespace DeXcor.ViewModels
 {
     public class MainViewModel : BindableBase
     {

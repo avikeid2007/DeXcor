@@ -168,12 +168,14 @@
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
+    <Compile Include="Services\ImageDataService.cs" />
     <Compile Include="Services\Ink\InkFileService.cs" />
     <Compile Include="Services\Ink\InkPointerDeviceService.cs" />
     <Compile Include="Services\Ink\InkStrokesService.cs" />
     <Compile Include="Services\Ink\InkZoomService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
+    <Compile Include="ViewModels\GalleryViewModel.cs" />
     <Compile Include="Views\DrawPage.xaml.cs">
       <DependentUpon>DrawPage.xaml</DependentUpon>
     </Compile>
@@ -192,7 +194,7 @@
     <Compile Include="Views\ShellPage.xaml.cs">
       <DependentUpon>ShellPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">

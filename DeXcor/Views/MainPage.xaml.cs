@@ -1,6 +1,4 @@
-﻿using DeXcor.Views.ViewModels;
-using PexelsDotNetSDK.Api;
-using System.Threading.Tasks;
+﻿using DeXcor.ViewModels;
 using Windows.UI.Xaml.Controls;
 
 namespace DeXcor.Views
@@ -16,6 +14,6 @@ namespace DeXcor.Views
 
         }
 
-        
+
     }
 }

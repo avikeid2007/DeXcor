@@ -22,7 +22,7 @@ namespace DeXcor.Views
             set
             {
                 Set(ref _selectedImage, value);
-                ImagesNavigationHelper.UpdateImageId(GalleryPage.GallerySelectedIdKey, SelectedImage.id);
+                ImagesNavigationHelper.UpdateImageId(ImageDataService.GallerySelectedIdKey, SelectedImage.id);
             }
         }
         public ObservableCollection<Photo> Source { get; } = new ObservableCollection<Photo>(ImageDataService.ImageCollection);
@@ -41,7 +41,7 @@ namespace DeXcor.Views
             }
             else
             {
-                selectedImageID = ImagesNavigationHelper.GetImageId(GalleryPage.GallerySelectedIdKey);
+                selectedImageID = ImagesNavigationHelper.GetImageId(ImageDataService.GallerySelectedIdKey);
                 if (selectedImageID != 0)
                 {
                     SelectedImage = Source.FirstOrDefault(i => i.id == selectedImageID);
@@ -55,7 +55,7 @@ namespace DeXcor.Views
             if (e.NavigationMode == NavigationMode.Back)
             {
                 NavigationService.Frame.SetListDataItemForNextConnectedAnimation(SelectedImage);
-                ImagesNavigationHelper.RemoveImageId(GalleryPage.GallerySelectedIdKey);
+                ImagesNavigationHelper.RemoveImageId(ImageDataService.GallerySelectedIdKey);
             }
         }
 
