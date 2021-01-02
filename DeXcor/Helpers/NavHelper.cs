@@ -1,7 +1,7 @@
-﻿using System;
-
-using Microsoft.UI.Xaml.Controls;
-
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace DeXcor.Helpers
@@ -27,5 +27,13 @@ namespace DeXcor.Helpers
 
         public static readonly DependencyProperty NavigateToProperty =
             DependencyProperty.RegisterAttached("NavigateTo", typeof(Type), typeof(NavHelper), new PropertyMetadata(null));
+    }
+    public static class DialogHelper
+    {
+        public static async Task ShowDialogAsync(string msg, string title = "")
+        {
+            await new MessageDialog(msg, title).ShowAsync();
+        }
+
     }
 }

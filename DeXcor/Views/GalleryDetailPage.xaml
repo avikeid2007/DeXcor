@@ -3,25 +3,147 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:PexelsDotNetSDK.Models"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     KeyDown="OnPageKeyDown"
     mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="MenuHeader">
+            <Grid
+                Margin="{StaticResource XSmallRightMargin}"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
 
+                <HyperlinkButton FontSize="{StaticResource MediumFontSize}" NavigateUri="{Binding Content.ViewModel.SelectedImage.photographerUrl, ElementName=shellFrame}">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            Glyph="&#xECA7;" />
+                        <TextBlock
+                            Margin="{StaticResource XSmallLeftMargin}"
+                            VerticalAlignment="Center"
+                            FontSize="{StaticResource MediumFontSize}"
+                            Text="{Binding Content.ViewModel.SelectedImage.photographer, ElementName=shellFrame, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </HyperlinkButton>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <FontIcon
+                        Margin="0,4,0,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        FontSize="{StaticResource MediumFontSize}"
+                        Glyph="&#xEB9F;" />
+                    <TextBlock
+                        Margin="{StaticResource XSmallLeftMargin}"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource MediumFontSize}"
+                        Text="{Binding Content.ViewModel.SelectedImage.width, ElementName=shellFrame, UpdateSourceTrigger=PropertyChanged}" />
+
+
+                    <TextBlock
+                        Margin="2,0,2,0"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource SmallFontSize}"
+                        Text="x" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource MediumFontSize}"
+                        Text="{Binding Content.ViewModel.SelectedImage.height, ElementName=shellFrame, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource MediumFontSize}"
+                        Text="px" />
+                </StackPanel>
+                <winui:DropDownButton
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    ToolTipService.Placement="Mouse"
+                    ToolTipService.ToolTip="Download image">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE896;" />
+                        <TextBlock
+                            Margin="{StaticResource XSmallLeftMargin}"
+                            VerticalAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="Download" />
+                    </StackPanel>
+                    <winui:DropDownButton.Flyout>
+                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                            <MenuFlyoutItem
+                                Command="{Binding Content.ViewModel.DownloadCommand, ElementName=shellFrame}"
+                                CommandParameter="Original"
+                                Text="Original" />
+                            <MenuFlyoutItem Command="{Binding Content.ViewModel.DownloadCommand, ElementName=shellFrame}" Text="Large2x" />
+                            <MenuFlyoutItem
+                                Command="{Binding Content.ViewModel.DownloadCommand, ElementName=shellFrame}"
+                                CommandParameter="Large2x"
+                                Text="Large2x" />
+                            <MenuFlyoutItem
+                                Command="{Binding Content.ViewModel.DownloadCommand, ElementName=shellFrame}"
+                                CommandParameter="Large"
+                                Text="Large" />
+                            <MenuFlyoutItem
+                                Command="{Binding Content.ViewModel.DownloadCommand, ElementName=shellFrame}"
+                                CommandParameter="Small"
+                                Text="Small" />
+                            <MenuFlyoutItem
+                                Command="{Binding Content.ViewModel.DownloadCommand, ElementName=shellFrame}"
+                                CommandParameter="Tiny"
+                                Text="Tiny" />
+                        </MenuFlyout>
+                    </winui:DropDownButton.Flyout>
+                </winui:DropDownButton>
+                <Button
+                    x:Name="BackgroundBtn"
+                    Grid.Column="3"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    Command="{Binding Content.ViewModel.SetBackgroundCommand, ElementName=shellFrame}"
+                    ToolTipService.Placement="Mouse"
+                    ToolTipService.ToolTip="Set as Background image">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE771;" />
+                        <TextBlock
+                            Margin="{StaticResource XSmallLeftMargin}"
+                            VerticalAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="Set as Background" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" />
+        <controls:Loading
+            x:Name="LoadingControl"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            IsLoading="{x:Bind ViewModel.IsBusy, Mode=OneWay}">
+            <Grid Margin="0,0,8,0">
+                <ProgressRing Foreground="White" IsActive="True" />
+            </Grid>
+            <controls:Loading.Background>
+                <SolidColorBrush Opacity="0.7" Color="Black" />
+            </controls:Loading.Background>
+        </controls:Loading>
         <FlipView
             x:Name="gallery"
             Grid.Row="1"
             animations:Connected.AnchorElement="{Binding ElementName=detailImage}"
             animations:Connected.Key="galleryAnimationKey"
-            ItemsSource="{x:Bind Source, Mode=OneWay}"
-            SelectedItem="{x:Bind SelectedImage, Mode=TwoWay}">
+            ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+            SelectedItem="{x:Bind ViewModel.SelectedImage, Mode=TwoWay}">
             <FlipView.ItemTemplate>
                 <DataTemplate x:DataType="models:Photo">
                     <Viewbox StretchDirection="Both">

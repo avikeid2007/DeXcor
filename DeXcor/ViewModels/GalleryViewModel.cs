@@ -127,10 +127,7 @@ namespace DeXcor.ViewModels
                 {
                     if (selected.Equals("Search", System.StringComparison.OrdinalIgnoreCase))
                     {
-                        //if (!string.IsNullOrEmpty(SelectedPage) && SelectedPage != "1" && !string.IsNullOrEmpty(SearchText))
-                        //{
                         await SearchWallpapersAsync(SearchText, pageCount);
-                        //}
                     }
                     else
                         await SearchWallpapersAsync(selected, pageCount);

@@ -1,5 +1,6 @@
 ﻿using BasicMvvm;
 using BasicMvvm.Commands;
+using DeXcor.Helpers;
 using DeXcor.Services;
 using PexelsDotNetSDK.Api;
 using PexelsDotNetSDK.Models;
@@ -8,10 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.System.UserProfile;
-using Windows.Web.Http;
 
 namespace DeXcor.ViewModels
 {
@@ -58,56 +56,34 @@ namespace DeXcor.ViewModels
 
         private async Task ChangeBackgroundAsync()
         {
+            if (ImageDataService.UsedList == null)
+            {
+                ImageDataService.UsedList = new List<Photo>();
+            }
             if (UserProfilePersonalizationSettings.IsSupported() && ImageDataService.CuratedWallpaperCollection?.Count > 0)
             {
                 try
                 {
-                    if (ImageDataService.UsedList == null)
-                    {
-                        ImageDataService.UsedList = new List<Photo>();
-                    }
                     IsBusy = true;
                     SelectedPhoto = await GetNewPhotoAsync();
                     if (SelectedPhoto != null)
                     {
-                        using (HttpClient client = new HttpClient())
-                        {
-                            HttpResponseMessage response = await client.GetAsync(new Uri(SelectedPhoto.source.original));
-                            if (response != null && response.StatusCode == Windows.Web.Http.HttpStatusCode.Ok)
-                            {
-                                string filename = "background.jpg";
-                                var imageFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
-                                using (IRandomAccessStream stream = await imageFile.OpenAsync(FileAccessMode.ReadWrite))
-                                {
-                                    await response.Content.WriteToStreamAsync(stream);
-                                }
-                                StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync(filename);
-                                UserProfilePersonalizationSettings settings = UserProfilePersonalizationSettings.Current;
-                                if (!await settings.TrySetWallpaperImageAsync(file))
-                                {
-                                    System.Diagnostics.Debug.WriteLine("Failed");
-                                }
-                                else
-                                {
-                                    System.Diagnostics.Debug.WriteLine("Success");
-                                    ImageDataService.UsedList.Add(SelectedPhoto);
-                                }
-                                IsBusy = false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        IsBusy = false;
+                        await BackgroundHelper.SetBackgroundAsync(SelectedPhoto);
                     }
                 }
                 catch (Exception ex)
+                {
+                    await DialogHelper.ShowDialogAsync("Something went wrong.");
+                }
+                finally
                 {
                     IsBusy = false;
                 }
             }
 
         }
+
+
 
         private async Task<Photo> GetNewPhotoAsync()
         {

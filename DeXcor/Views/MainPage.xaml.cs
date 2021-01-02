@@ -11,9 +11,6 @@ namespace DeXcor.Views
             InitializeComponent();
             ViewModel = new MainViewModel();
             this.DataContext = ViewModel;
-
         }
-
-
     }
 }

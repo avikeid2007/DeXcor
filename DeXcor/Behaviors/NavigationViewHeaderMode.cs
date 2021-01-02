@@ -6,4 +6,12 @@
         Never,
         Minimal
     }
+    public enum ImageSize
+    {
+        Original,
+        Large2x,
+        Large,
+        Small,
+        Tiny
+    }
 }

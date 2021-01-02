@@ -1,35 +1,30 @@
-﻿using DeXcor.Helpers;
+﻿using DeXcor.Behaviors;
+using DeXcor.Helpers;
 using DeXcor.Services;
+using DeXcor.ViewModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using PexelsDotNetSDK.Models;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Windows.System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace DeXcor.Views
 {
-    public sealed partial class GalleryDetailPage : Windows.UI.Xaml.Controls.Page, INotifyPropertyChanged
+    public sealed partial class GalleryDetailPage : Page
     {
-        private Photo _selectedImage;
-
-        public Photo SelectedImage
-        {
-            get => _selectedImage;
-            set
-            {
-                Set(ref _selectedImage, value);
-                ImagesNavigationHelper.UpdateImageId(ImageDataService.GallerySelectedIdKey, SelectedImage.id);
-            }
-        }
-        public ObservableCollection<Photo> Source { get; } = new ObservableCollection<Photo>(ImageDataService.ImageCollection);
-
+        public GalleryDetailViewModel ViewModel { get; set; }
         public GalleryDetailPage()
         {
             InitializeComponent();
+            ViewModel = new GalleryDetailViewModel();
+            this.DataContext = ViewModel;
+            Loaded += GalleryPage_OnLoaded;
+        }
+        private void GalleryPage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            NavigationViewHeaderBehavior.SetHeaderTemplate(this, Resources["MenuHeader"] as DataTemplate);
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -37,14 +32,14 @@ namespace DeXcor.Views
             base.OnNavigatedTo(e);
             if (e.Parameter is int selectedImageID && e.NavigationMode == NavigationMode.New)
             {
-                SelectedImage = Source.FirstOrDefault(i => i.id == selectedImageID);
+                ViewModel.SelectedImage = ViewModel.Source.FirstOrDefault(i => i.id == selectedImageID);
             }
             else
             {
                 selectedImageID = ImagesNavigationHelper.GetImageId(ImageDataService.GallerySelectedIdKey);
                 if (selectedImageID != 0)
                 {
-                    SelectedImage = Source.FirstOrDefault(i => i.id == selectedImageID);
+                    ViewModel.SelectedImage = ViewModel.Source.FirstOrDefault(i => i.id == selectedImageID);
                 }
             }
         }
@@ -54,7 +49,7 @@ namespace DeXcor.Views
             base.OnNavigatingFrom(e);
             if (e.NavigationMode == NavigationMode.Back)
             {
-                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(SelectedImage);
+                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(ViewModel.SelectedImage);
                 ImagesNavigationHelper.RemoveImageId(ImageDataService.GallerySelectedIdKey);
             }
         }
@@ -67,20 +62,5 @@ namespace DeXcor.Views
                 e.Handled = true;
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (Equals(storage, value))
-            {
-                return;
-            }
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-        }
-
-        private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
