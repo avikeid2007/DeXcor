@@ -104,5 +104,14 @@
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
         </GridView>
+        <Image
+            x:Name="pxlLogo"
+            Grid.Row="1"
+            Width="100"
+            Margin="0,0,36,28"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Opacity="0.5"
+            Source="{ThemeResource PxlLogo}" />
     </Grid>
 </Page>

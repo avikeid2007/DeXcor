@@ -1,12 +1,10 @@
-﻿using System;
+﻿using DeXcor.Behaviors;
+using DeXcor.Helpers;
+using DeXcor.Services.Ink;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-
-using DeXcor.Behaviors;
-using DeXcor.Helpers;
-using DeXcor.Services.Ink;
-
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -185,7 +183,7 @@ namespace DeXcor.Views
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
+        private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             if (Equals(storage, value))
             {

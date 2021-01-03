@@ -57,6 +57,12 @@
                 </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
             </behaviors:NavigationViewHeaderBehavior>
         </i:Interaction.Behaviors>
+        <winui:NavigationView.PaneFooter>
+            <NavigationViewItem
+                Content="Rate us"
+                Icon="Like"
+                Tapped="NavigationViewItem_TappedAsync" />
+        </winui:NavigationView.PaneFooter>
         <Grid>
             <Frame x:Name="shellFrame" />
         </Grid>

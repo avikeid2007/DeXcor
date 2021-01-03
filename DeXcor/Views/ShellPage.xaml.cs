@@ -132,5 +132,10 @@ namespace DeXcor.Views
             OnPropertyChanged(propertyName);
         }
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        private async void NavigationViewItem_TappedAsync(object sender, TappedRoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-windows-store://review/?ProductId=9MXBN5NH4J95"));
+        }
     }
 }

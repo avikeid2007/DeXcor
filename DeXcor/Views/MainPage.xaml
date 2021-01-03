@@ -128,6 +128,14 @@
             </StackPanel>
 
         </controls:TileControl>
+        <Image
+            x:Name="pxlLogo"
+            Width="100"
+            Margin="0,0,36,28"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Opacity="0.5"
+            Source="{ThemeResource PxlLogo}" />
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
                 <VisualState x:Name="VisualStateNarrow">

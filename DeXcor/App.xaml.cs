@@ -4,6 +4,7 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using System;
 using System.Configuration;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -25,7 +26,14 @@ namespace DeXcor
             AppCenter.Start("{Your App Secret}", typeof(Analytics), typeof(Crashes));
             UnhandledException += OnAppUnhandledException;
             _activationService = new Lazy<ActivationService>(CreateActivationService);
+            this.Suspending += OnSuspending;
             GetApiKey();
+        }
+
+        private void OnSuspending(object sender, SuspendingEventArgs e)
+        {
+            var deferral = e.SuspendingOperation.GetDeferral();
+            deferral.Complete();
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)

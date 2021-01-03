@@ -76,7 +76,9 @@ namespace DeXcor.ViewModels
             {
                 IsBusy = true;
                 await BackgroundHelper.SetBackgroundAsync(SelectedImage, false);
+                await DialogHelper.ShowDialogAsync("This image has set as background.");
                 IsBusy = false;
+
             }
             catch
             {

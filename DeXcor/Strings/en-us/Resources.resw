@@ -153,11 +153,11 @@
     <value>Mouse inking</value>
     <comment>Mouse inking button automation name property for Draw</comment>
   </data>
-<data name="Draw_ZoomInButton.Label" xml:space="preserve">
+  <data name="Draw_ZoomInButton.Label" xml:space="preserve">
     <value>Zoom in</value>
     <comment>ZoomIn button label property for Draw</comment>
   </data>
-    <data name="Draw_ZoomInButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+  <data name="Draw_ZoomInButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Zoom in</value>
     <comment>ZoomIn button tooltip property for Draw</comment>
   </data>
@@ -169,7 +169,7 @@
     <value>Zoom out</value>
     <comment>ZoomOut button label property for Draw</comment>
   </data>
-    <data name="Draw_ZoomOutButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+  <data name="Draw_ZoomOutButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Zoom out</value>
     <comment>ZoomOut button tooltip property for Draw</comment>
   </data>
@@ -181,7 +181,7 @@
     <value>Original size</value>
     <comment>OriginalSize button label property for Draw</comment>
   </data>
-    <data name="Draw_OriginalSizeButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+  <data name="Draw_OriginalSizeButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Original size</value>
     <comment>OriginalSize button tooltip property for Draw</comment>
   </data>
@@ -193,7 +193,7 @@
     <value>Fit to screen</value>
     <comment>FitToScreen button label property for Draw</comment>
   </data>
-    <data name="Draw_FitToScreenButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+  <data name="Draw_FitToScreenButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Fit to screen</value>
     <comment>FitToScreen button tooltip property for Draw</comment>
   </data>
@@ -205,7 +205,7 @@
     <value>Open image</value>
     <comment>OpenImage button label property for Draw</comment>
   </data>
-    <data name="Draw_OpenImageButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+  <data name="Draw_OpenImageButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Open image</value>
     <comment>OpenImage button tooltip property for Draw</comment>
   </data>
@@ -217,7 +217,7 @@
     <value>Save image</value>
     <comment>SaveImage button label property for Draw</comment>
   </data>
-    <data name="Draw_SaveImageButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+  <data name="Draw_SaveImageButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Save image</value>
     <comment>SaveImage button tooltip property for Draw</comment>
   </data>
@@ -229,7 +229,7 @@
     <value>Clear all</value>
     <comment>ClearAll button label property for Draw</comment>
   </data>
-    <data name="Draw_ClearAllButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+  <data name="Draw_ClearAllButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Clear all</value>
     <comment>ClearAll button tooltip property for Draw</comment>
   </data>
@@ -257,23 +257,23 @@
     <value>Light</value>
     <comment>Light theme text for Settings</comment>
   </data>
-  <data name="Settings_About.Text" xml:space="preserve">    
+  <data name="Settings_About.Text" xml:space="preserve">
     <value>About this application</value>
     <comment>About this application title for Settings</comment>
   </data>
-  <data name="Settings_AboutDescription.Text" xml:space="preserve">    
-    <value>Settings page placeholder text.  Your app description goes here.</value>
+  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+    <value>Using DeXcor application, you can browse thousands of high-quality wallpaper and can set them as windows background.</value>
     <comment>About this application description for Settings</comment>
   </data>
-  <data name="Settings_PrivacyTermsLink.Content" xml:space="preserve">    
+  <data name="Settings_PrivacyTermsLink.Content" xml:space="preserve">
     <value>Privacy Statement</value>
     <comment>Privacy Statement link content for Settings</comment>
   </data>
-  <data name="Settings_PrivacyTermsLink.NavigateUri" xml:space="preserve">  
-    <value>https://YourPrivacyUrlGoesHere/</value>
+  <data name="Settings_PrivacyTermsLink.NavigateUri" xml:space="preserve">
+    <value>https://avikeid2007.github.io/DeXcor/PrivacyPolicy</value>
     <comment>Here is your Privacy Statement url for Settings</comment>
   </data>
-  <data name="Settings_Personalization.Text" xml:space="preserve">   
+  <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>Personalization</value>
     <comment>Personalization text for Settings</comment>
   </data>

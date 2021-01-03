@@ -37,6 +37,19 @@
                     </StackPanel>
                 </HyperlinkButton>
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <winui:ProgressRing
+                        Width="16"
+                        Height="16"
+                        Margin="0,4,4,0"
+                        VerticalAlignment="Center"
+                        IsActive="{Binding Content.ViewModel.IsBusy, ElementName=shellFrame}" />
+                    <!--<FontIcon
+                        Margin="0,4,0,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        FontSize="20"
+                        Foreground="#E49E02"
+                        Glyph="&#xEB4F;" />-->
                     <FontIcon
                         Margin="0,4,0,0"
                         VerticalAlignment="Center"
@@ -48,8 +61,6 @@
                         VerticalAlignment="Center"
                         FontSize="{StaticResource MediumFontSize}"
                         Text="{Binding Content.ViewModel.SelectedImage.width, ElementName=shellFrame, UpdateSourceTrigger=PropertyChanged}" />
-
-
                     <TextBlock
                         Margin="2,0,2,0"
                         VerticalAlignment="Center"
@@ -84,11 +95,10 @@
                                 Command="{Binding Content.ViewModel.DownloadCommand, ElementName=shellFrame}"
                                 CommandParameter="Original"
                                 Text="Original" />
-                            <MenuFlyoutItem Command="{Binding Content.ViewModel.DownloadCommand, ElementName=shellFrame}" Text="Large2x" />
                             <MenuFlyoutItem
                                 Command="{Binding Content.ViewModel.DownloadCommand, ElementName=shellFrame}"
                                 CommandParameter="Large2x"
-                                Text="Large2x" />
+                                Text="Large2X" />
                             <MenuFlyoutItem
                                 Command="{Binding Content.ViewModel.DownloadCommand, ElementName=shellFrame}"
                                 CommandParameter="Large"
@@ -113,6 +123,7 @@
                     ToolTipService.Placement="Mouse"
                     ToolTipService.ToolTip="Set as Background image">
                     <StackPanel Orientation="Horizontal">
+
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE771;" />
                         <TextBlock
                             Margin="{StaticResource XSmallLeftMargin}"
@@ -125,23 +136,12 @@
         </DataTemplate>
     </Page.Resources>
     <Grid>
-        <controls:Loading
-            x:Name="LoadingControl"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            IsLoading="{x:Bind ViewModel.IsBusy, Mode=OneWay}">
-            <Grid Margin="0,0,8,0">
-                <ProgressRing Foreground="White" IsActive="True" />
-            </Grid>
-            <controls:Loading.Background>
-                <SolidColorBrush Opacity="0.7" Color="Black" />
-            </controls:Loading.Background>
-        </controls:Loading>
         <FlipView
             x:Name="gallery"
             Grid.Row="1"
             animations:Connected.AnchorElement="{Binding ElementName=detailImage}"
             animations:Connected.Key="galleryAnimationKey"
+            Canvas.ZIndex="1"
             ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
             SelectedItem="{x:Bind ViewModel.SelectedImage, Mode=TwoWay}">
             <FlipView.ItemTemplate>
@@ -155,5 +155,13 @@
                 </DataTemplate>
             </FlipView.ItemTemplate>
         </FlipView>
+        <Image
+            x:Name="pxlLogo"
+            Width="100"
+            Margin="0,0,36,28"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Opacity="0.5"
+            Source="{ThemeResource PxlLogo}" />
     </Grid>
 </Page>
