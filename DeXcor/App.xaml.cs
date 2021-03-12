@@ -23,7 +23,7 @@ namespace DeXcor
         public App()
         {
             InitializeComponent();
-            AppCenter.Start("{Your App Secret}", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("47fe3125-c353-4605-99e8-706dee6980a1", typeof(Analytics), typeof(Crashes));
             UnhandledException += OnAppUnhandledException;
             _activationService = new Lazy<ActivationService>(CreateActivationService);
             this.Suspending += OnSuspending;
@@ -32,8 +32,8 @@ namespace DeXcor
 
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            var deferral = e.SuspendingOperation.GetDeferral();
-            deferral.Complete();
+            //var deferral = e.SuspendingOperation.GetDeferral();
+            //deferral.Complete();
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)

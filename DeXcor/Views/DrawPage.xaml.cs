@@ -171,13 +171,12 @@ namespace DeXcor.Views
             strokesService?.ClearStrokes();
             imageFile = null;
             image.Source = null;
-
             RefreshEnabledButtons();
         }
 
         private void RefreshEnabledButtons()
         {
-            SaveImageButtonIsEnabled = image.Source != null && strokesService.GetStrokes().Any();
+            //SaveImageButtonIsEnabled = image.Source != null && strokesService.GetStrokes().Any();
             ClearAllButtonIsEnabled = image.Source != null || strokesService.GetStrokes().Any();
         }
 

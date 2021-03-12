@@ -54,6 +54,10 @@ namespace DeXcor.Services
         }
         public static async Task<PhotoPage> FetchWallpaperListAsync(string keyword, int page = 1)
         {
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return null;
+            }
             var pexelsClient = new PexelsClient(ApiKey);
             return await pexelsClient.SearchPhotosAsync(keyword, page: page, pageSize: 80);
         }

@@ -9,7 +9,13 @@
     <Page.Resources>
         <DataTemplate x:Key="BigHeaderTemplate">
             <RelativePanel>
-                <TextBlock x:Uid="DrawHeader" Margin="{StaticResource SmallLeftMargin}" MaxLines="1" TextTrimming="CharacterEllipsis" RelativePanel.LeftOf="toolbar" RelativePanel.AlignLeftWithPanel="True" />
+                <TextBlock
+                    x:Uid="DrawHeader"
+                    Margin="{StaticResource SmallLeftMargin}"
+                    MaxLines="1"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.LeftOf="toolbar"
+                    TextTrimming="CharacterEllipsis" />
                 <InkToolbar
                     x:Name="toolbar"
                     Background="Transparent"
@@ -107,6 +113,83 @@
     </Page.Resources>
 
     <Grid x:Name="ContentArea">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer
+            x:Name="canvasScroll"
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            ZoomMode="Enabled">
+            <Grid
+                Width="{Binding ElementName=inkCanvas, Path=Width}"
+                Height="{Binding ElementName=inkCanvas, Path=Height}"
+                Background="{StaticResource InkCanvasBackground}">
+                <Image x:Name="image" Stretch="None" />
+                <InkCanvas
+                    x:Name="inkCanvas"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" />
+            </Grid>
+        </ScrollViewer>
+        <CommandBar
+            x:Name="bottomCommandBar"
+            Grid.Row="1"
+            Style="{StaticResource InkCommandBarStyle}">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton
+                    x:Uid="Draw_ZoomInButton"
+                    BorderBrush="Transparent"
+                    BorderThickness="0,0,0,0"
+                    Click="ZoomIn_Click"
+                    Icon="ZoomIn" />
+                <AppBarButton
+                    x:Uid="Draw_ZoomOutButton"
+                    BorderBrush="Transparent"
+                    BorderThickness="0,0,0,0"
+                    Click="ZoomOut_Click"
+                    Icon="ZoomOut" />
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton
+                    x:Uid="Draw_OriginalSizeButton"
+                    BorderBrush="Transparent"
+                    BorderThickness="0,0,0,0"
+                    Click="ResetZoom_Click"
+                    Icon="FullScreen" />
+                <AppBarButton
+                    x:Uid="Draw_FitToScreenButton"
+                    BorderBrush="Transparent"
+                    BorderThickness="0,0,0,0"
+                    Click="FitToScreen_Click">
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE73F;" />
+                </AppBarButton>
+                <AppBarSeparator />
+                <AppBarButton
+                    x:Uid="Draw_OpenImageButton"
+                    BorderBrush="Transparent"
+                    BorderThickness="0,0,0,0"
+                    Click="LoadImage_Click">
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xEB9F;" />
+                </AppBarButton>
+                <AppBarButton
+                    x:Uid="Draw_SaveImageButton"
+                    BorderBrush="Transparent"
+                    BorderThickness="0,0,0,0"
+                    Click="SaveImage_Click"
+                    Icon="Save" />
+                <AppBarSeparator />
+                <AppBarButton
+                    x:Uid="Draw_ClearAllButton"
+                    BorderBrush="Transparent"
+                    BorderThickness="0,0,0,0"
+                    Click="ClearAll_Click"
+                    Icon="Delete"
+                    IsEnabled="{x:Bind ClearAllButtonIsEnabled, Mode=OneWay}" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="visualStateGroup" CurrentStateChanged="VisualStateGroup_CurrentStateChanged">
                 <VisualState x:Name="SmallVisualState">
@@ -121,46 +204,5 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <ScrollViewer
-            x:Name="canvasScroll"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            ScrollViewer.HorizontalScrollBarVisibility="Auto"
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
-            ZoomMode="Enabled">
-                <Grid Background="{StaticResource InkCanvasBackground}"
-                        Width="{Binding ElementName=inkCanvas, Path=Width}"
-                        Height="{Binding ElementName=inkCanvas, Path=Height}"> 
-                    <Image x:Name="image" Stretch="None" />                       
-                    <InkCanvas x:Name="inkCanvas"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch" />
-            </Grid>
-        </ScrollViewer>        
-        <CommandBar
-            x:Name="bottomCommandBar"
-            Grid.Row="1"
-            Style="{StaticResource InkCommandBarStyle}">
-            <CommandBar.PrimaryCommands>
-                <AppBarButton x:Uid="Draw_ZoomInButton" Icon="ZoomIn" Click="ZoomIn_Click" BorderBrush="Transparent" BorderThickness="0,0,0,0" />
-                <AppBarButton x:Uid="Draw_ZoomOutButton" Icon="ZoomOut" Click="ZoomOut_Click" BorderBrush="Transparent" BorderThickness="0,0,0,0" />
-            </CommandBar.PrimaryCommands>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton x:Uid="Draw_OriginalSizeButton" Icon="FullScreen" Click="ResetZoom_Click" BorderBrush="Transparent" BorderThickness="0,0,0,0" />
-                <AppBarButton x:Uid="Draw_FitToScreenButton" Click="FitToScreen_Click" BorderBrush="Transparent" BorderThickness="0,0,0,0">
-                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE73F;" />
-                </AppBarButton>
-                <AppBarSeparator/>
-                <AppBarButton x:Uid="Draw_OpenImageButton" Click="LoadImage_Click" BorderBrush="Transparent" BorderThickness="0,0,0,0">
-                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xEB9F;" />
-                </AppBarButton>
-                <AppBarButton x:Uid="Draw_SaveImageButton" Icon="Save" Click="SaveImage_Click" IsEnabled="{x:Bind SaveImageButtonIsEnabled, Mode=OneWay}" BorderBrush="Transparent" BorderThickness="0,0,0,0" />
-                <AppBarSeparator/>
-                <AppBarButton x:Uid="Draw_ClearAllButton" Icon="Delete" Click="ClearAll_Click" IsEnabled="{x:Bind ClearAllButtonIsEnabled, Mode=OneWay}" BorderBrush="Transparent" BorderThickness="0,0,0,0" />
-            </CommandBar.SecondaryCommands>
-        </CommandBar>
     </Grid>
 </Page>

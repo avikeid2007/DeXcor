@@ -8,15 +8,15 @@
   IgnorableNamespaces="uap mp genTemplate">
 
   <Identity
-    Name="B7E6FEC0-FB2A-4BE2-A142-F2C612AE0FFF"
-    Publisher="CN=avnish"
+    Name="34488AvnishKumar.DeXcor"
+    Publisher="CN=1494B4FB-4349-4083-8AFA-16D2A64B8D99"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="B7E6FEC0-FB2A-4BE2-A142-F2C612AE0FFF" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="713df392-605c-44b6-9c3d-e7a39cc0c448" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>DeXcor</DisplayName>
-    <PublisherDisplayName>avnish</PublisherDisplayName>
+    <DisplayName>DeXcor- Desktop Background Changer</DisplayName>
+    <PublisherDisplayName>Avnish Kumar</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
