@@ -21,6 +21,7 @@
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
                 <HyperlinkButton FontSize="{StaticResource MediumFontSize}" NavigateUri="{Binding Content.ViewModel.SelectedImage.photographerUrl, ElementName=shellFrame}">
@@ -114,9 +115,28 @@
                         </MenuFlyout>
                     </winui:DropDownButton.Flyout>
                 </winui:DropDownButton>
+
+                <Button
+                    x:Name="editBtn"
+                    Grid.Column="3"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    Command="{Binding Content.ViewModel.EditCommand, ElementName=shellFrame}"
+                    ToolTipService.Placement="Mouse"
+                    ToolTipService.ToolTip="Edit and Draw this image">
+                    <StackPanel Orientation="Horizontal">
+
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xF69E;" />
+                        <TextBlock
+                            Margin="{StaticResource XSmallLeftMargin}"
+                            VerticalAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="Edit &amp; Draw" />
+                    </StackPanel>
+                </Button>
                 <Button
                     x:Name="BackgroundBtn"
-                    Grid.Column="3"
+                    Grid.Column="4"
                     VerticalAlignment="Center"
                     Background="Transparent"
                     Command="{Binding Content.ViewModel.SetBackgroundCommand, ElementName=shellFrame}"

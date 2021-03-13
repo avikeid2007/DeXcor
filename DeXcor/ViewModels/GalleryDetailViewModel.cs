@@ -2,7 +2,9 @@
 using BasicMvvm.Commands;
 using DeXcor.Helpers;
 using DeXcor.Services;
+using DeXcor.Views;
 using PexelsDotNetSDK.Models;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -13,6 +15,15 @@ namespace DeXcor.ViewModels
     {
         public ICommand DownloadCommand => new AsyncCommand<string>(OnDownloadCommandExecutedAsync);
         public ICommand SetBackgroundCommand => new AsyncCommand(OnSetBackgroundCommandExecutedAsync);
+        public ICommand EditCommand => new AsyncCommand(OnEditCommandExecutedAsync);
+
+        private async Task OnEditCommandExecutedAsync()
+        {
+            var storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var sampleFile = await storageFolder.CreateFileAsync("file.jpg", Windows.Storage.CreationCollisionOption.ReplaceExisting);
+            if (SelectedImage != null && await ImageHelper.DownloadFileFromURLAsync(sampleFile, GetImageUrl("large")))
+                NavigationService.Navigate(typeof(DrawPage), sampleFile);
+        }
 
         private Photo _selectedImage;
         private bool _isBusy;

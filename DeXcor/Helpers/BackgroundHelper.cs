@@ -18,7 +18,7 @@ namespace DeXcor.Helpers
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(new Uri(selectedPhoto.source.original));
-                if (response != null && response.StatusCode == Windows.Web.Http.HttpStatusCode.Ok)
+                if (response != null && response.StatusCode == HttpStatusCode.Ok)
                 {
                     var type = response.Content.Headers.ContentType;
                     string filename = "background.jpg";
@@ -30,7 +30,7 @@ namespace DeXcor.Helpers
                     StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync(filename);
                     if (await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file) && IsCheckPrevious)
                     {
-                        (ImageDataService.UsedList ?? (ImageDataService.UsedList = new List<Photo>())).Add(selectedPhoto);
+                        (ImageDataService.UsedList ??= new List<Photo>()).Add(selectedPhoto);
                     }
                 }
             }

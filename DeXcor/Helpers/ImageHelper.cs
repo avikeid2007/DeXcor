@@ -24,26 +24,29 @@ namespace DeXcor.Helpers
             openPicker.FileTypeFilter.Add(".jpg");
             openPicker.FileTypeFilter.Add(".bmp");
 
-            var imageFile = await openPicker.PickSingleFileAsync();
-
-            return imageFile;
+            return await openPicker.PickSingleFileAsync();
         }
         public static async Task<bool> DownloadImageAsync(string url, string fileName = "")
         {
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker
+            var savePicker = new FileSavePicker
             {
                 SuggestedStartLocation =
-                Windows.Storage.Pickers.PickerLocationId.PicturesLibrary
+                PickerLocationId.PicturesLibrary
             };
             savePicker.FileTypeChoices.Add("Image File", new List<string>() { ".jpg" });
             savePicker.SuggestedFileName = fileName;
-            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+            StorageFile file = await savePicker.PickSaveFileAsync();
+            return await DownloadFileFromURLAsync(file, url);
+
+        }
+        public static async Task<bool> DownloadFileFromURLAsync(StorageFile file, string url)
+        {
             if (file != null)
             {
                 using (HttpClient client = new HttpClient())
                 {
                     HttpResponseMessage response = await client.GetAsync(new Uri(url));
-                    if (response != null && response.StatusCode == Windows.Web.Http.HttpStatusCode.Ok)
+                    if (response?.StatusCode == HttpStatusCode.Ok)
                     {
                         using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.ReadWrite))
                         {
@@ -61,7 +64,6 @@ namespace DeXcor.Helpers
             {
                 return null;
             }
-
             try
             {
                 using (var fileStream = await file.OpenAsync(FileAccessMode.Read))
@@ -76,5 +78,6 @@ namespace DeXcor.Helpers
                 return null;
             }
         }
+
     }
 }

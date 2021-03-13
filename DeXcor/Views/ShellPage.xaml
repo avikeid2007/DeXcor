@@ -48,10 +48,7 @@
                 <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock
-                                Margin="{StaticResource SmallLeftRightMargin}"
-                                Style="{ThemeResource TitleTextBlockStyle}"
-                                Text="{Binding}" />
+                            <TextBlock Margin="{StaticResource SmallLeftRightMargin}" Style="{ThemeResource TitleTextBlockStyle}" />
                         </Grid>
                     </DataTemplate>
                 </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>

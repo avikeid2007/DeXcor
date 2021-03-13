@@ -5,10 +5,12 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Navigation;
 
 namespace DeXcor.Views
 {
@@ -32,19 +34,19 @@ namespace DeXcor.Views
             SetNavigationViewHeaderContext();
             SetNavigationViewHeaderTemplate();
 
-            Loaded += (sender, eventArgs) =>
+            Loaded += (_, _) =>
             {
                 SetCanvasSize();
                 image.SizeChanged += Image_SizeChanged;
-
                 strokesService = new InkStrokesService(inkCanvas.InkPresenter);
                 pointerDeviceService = new InkPointerDeviceService(inkCanvas);
                 fileService = new InkFileService(inkCanvas, strokesService);
                 zoomService = new InkZoomService(canvasScroll);
-                strokesService.StrokesCollected += (s, e) => RefreshEnabledButtons();
-                strokesService.StrokesErased += (s, e) => RefreshEnabledButtons();
-                strokesService.ClearStrokesEvent += (s, e) => RefreshEnabledButtons();
-                pointerDeviceService.DetectPenEvent += (s, e) => TouchInkingButtonIsChecked = false;
+                strokesService.StrokesCollected += (_, _) => RefreshEnabledButtons();
+                strokesService.StrokesErased += (_, _) => RefreshEnabledButtons();
+                strokesService.ClearStrokesEvent += (_, _) => RefreshEnabledButtons();
+                pointerDeviceService.DetectPenEvent += (_, _) => TouchInkingButtonIsChecked = false;
+                _ = LoadPlainAsync();
             };
         }
 
@@ -55,7 +57,14 @@ namespace DeXcor.Views
                 inkToolbar.TargetInkCanvas = inkCanvas;
             }
         }
-
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is StorageFile file)
+            {
+                LoadImageAsync(file);
+            }
+            base.OnNavigatedTo(e);
+        }
         private void VisualStateGroup_CurrentStateChanged(object sender, VisualStateChangedEventArgs e) => SetNavigationViewHeaderTemplate();
 
         private void SetNavigationViewHeaderTemplate()
@@ -138,33 +147,43 @@ namespace DeXcor.Views
             }
         }
 
-        private void ZoomIn_Click(object sender, RoutedEventArgs e) => zoomService?.ZoomIn();
+        private void ZoomIn_Click(object _, RoutedEventArgs __) => zoomService?.ZoomIn();
 
-        private void ZoomOut_Click(object sender, RoutedEventArgs e) => zoomService?.ZoomOut();
+        private void ZoomOut_Click(object _, RoutedEventArgs __) => zoomService?.ZoomOut();
 
-        private void ResetZoom_Click(object sender, RoutedEventArgs e) => zoomService?.ResetZoom();
+        private void ResetZoom_Click(object _, RoutedEventArgs __) => zoomService?.ResetZoom();
 
-        private void FitToScreen_Click(object sender, RoutedEventArgs e) => zoomService?.FitToScreen();
+        private void FitToScreen_Click(object _, RoutedEventArgs __) => zoomService?.FitToScreen();
 
-        private async void LoadImage_Click(object sender, RoutedEventArgs e)
+        private async void LoadImage_Click(object _, RoutedEventArgs __)
         {
             var file = await ImageHelper.LoadImageFileAsync();
+            await LoadImageAsync(file);
+        }
+        private async Task LoadImageAsync(StorageFile file)
+        {
             var bitmapImage = await ImageHelper.GetBitmapFromImageAsync(file);
-
             if (file != null && bitmapImage != null)
             {
                 ClearAll();
                 imageFile = file;
                 image.Source = bitmapImage;
                 zoomService?.FitToSize(bitmapImage.PixelWidth, bitmapImage.PixelHeight);
-
                 RefreshEnabledButtons();
             }
         }
+        private async Task LoadPlainAsync()
+        {
+            StorageFolder InstallationFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            StorageFile file = await InstallationFolder.GetFileAsync(@"Assets\SampleData\plain.jpg");
+            if (file is not null)
+            {
+                await LoadImageAsync(file);
+            }
+        }
+        private async void SaveImage_Click(object _, RoutedEventArgs __) => await fileService?.ExportToImageAsync(imageFile);
 
-        private async void SaveImage_Click(object sender, RoutedEventArgs e) => await fileService?.ExportToImageAsync(imageFile);
-
-        private void ClearAll_Click(object sender, RoutedEventArgs e) => ClearAll();
+        private void ClearAll_Click(object _, RoutedEventArgs __) => ClearAll();
 
         private void ClearAll()
         {
@@ -176,7 +195,7 @@ namespace DeXcor.Views
 
         private void RefreshEnabledButtons()
         {
-            //SaveImageButtonIsEnabled = image.Source != null && strokesService.GetStrokes().Any();
+            SaveImageButtonIsEnabled = image.Source != null && strokesService.GetStrokes().Any();
             ClearAllButtonIsEnabled = image.Source != null || strokesService.GetStrokes().Any();
         }
 

@@ -18,7 +18,8 @@
         <Style x:Name="BorderStyle" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Background" Value="#40000000" />
+            <Setter Property="Background" Value="#50000000" />
+            <Setter Property="BorderBrush" Value="#90000000" />
         </Style>
     </Page.Resources>
     <Grid x:Name="ContentArea">

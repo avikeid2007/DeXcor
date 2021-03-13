@@ -135,7 +135,7 @@ namespace DeXcor.Views
 
         private async void NavigationViewItem_TappedAsync(object sender, TappedRoutedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-windows-store://review/?ProductId=9MXBN5NH4J95"));
+            await Launcher.LaunchUriAsync(new Uri("ms-windows-store://review/?ProductId=9MXBN5NH4J95"));
         }
     }
 }
