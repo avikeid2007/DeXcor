@@ -26,10 +26,7 @@
 
                 <HyperlinkButton FontSize="{StaticResource MediumFontSize}" NavigateUri="{Binding Content.ViewModel.SelectedImage.photographerUrl, ElementName=shellFrame}">
                     <StackPanel Orientation="Horizontal">
-                        <FontIcon
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            Glyph="&#xECA7;" />
+                        <TextBlock VerticalAlignment="Center" Text="📸" />
                         <TextBlock
                             Margin="{StaticResource XSmallLeftMargin}"
                             VerticalAlignment="Center"
@@ -51,12 +48,7 @@
                         FontSize="20"
                         Foreground="#E49E02"
                         Glyph="&#xEB4F;" />-->
-                    <FontIcon
-                        Margin="0,4,0,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource SymbolThemeFontFamily}"
-                        FontSize="{StaticResource MediumFontSize}"
-                        Glyph="&#xEB9F;" />
+                    <TextBlock FontSize="{StaticResource MediumFontSize}" Text="📐" />
                     <TextBlock
                         Margin="{StaticResource XSmallLeftMargin}"
                         VerticalAlignment="Center"
@@ -83,7 +75,7 @@
                     ToolTipService.Placement="Mouse"
                     ToolTipService.ToolTip="Download image">
                     <StackPanel Orientation="Horizontal">
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE896;" />
+                        <TextBlock FontSize="{StaticResource MediumFontSize}" Text="💾" />
                         <TextBlock
                             Margin="{StaticResource XSmallLeftMargin}"
                             VerticalAlignment="Center"
@@ -126,7 +118,7 @@
                     ToolTipService.ToolTip="Edit and Draw this image">
                     <StackPanel Orientation="Horizontal">
 
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xF69E;" />
+                        <TextBlock FontSize="{StaticResource MediumFontSize}" Text="🎨" />
                         <TextBlock
                             Margin="{StaticResource XSmallLeftMargin}"
                             VerticalAlignment="Center"
@@ -144,7 +136,7 @@
                     ToolTipService.ToolTip="Set as Background image">
                     <StackPanel Orientation="Horizontal">
 
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE771;" />
+                        <TextBlock FontSize="{StaticResource MediumFontSize}" Text="✔" />
                         <TextBlock
                             Margin="{StaticResource XSmallLeftMargin}"
                             VerticalAlignment="Center"

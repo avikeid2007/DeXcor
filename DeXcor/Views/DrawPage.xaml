@@ -98,7 +98,25 @@
                             Click="LoadImage_Click">
                             <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xEB9F;" />
                         </AppBarButton>
+                        <AppBarButton
+                            x:Uid="Draw_SaveImageButton"
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            Click="SaveImage_Click"
+                            Icon="Save"
+                            IsEnabled="{Binding Content.SaveImageButtonIsEnabled, ElementName=shellFrame, Mode=OneWay}"
+                            Label="Save image" />
 
+                        <AppBarButton
+                            x:Uid="Draw_SetImageButton"
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            Click="SetImage_Click"
+                            Icon="Accept"
+                            IsEnabled="{Binding Content.SaveImageButtonIsEnabled, ElementName=shellFrame, Mode=OneWay}"
+                            Label="Set as Background"
+                            ToolTipService.Placement="Mouse"
+                            ToolTipService.ToolTip="Set as Background" />
                         <AppBarSeparator />
                         <AppBarButton
                             x:Uid="Draw_ClearAllButton"
@@ -169,10 +187,24 @@
                     Click="ZoomOut_Click"
                     Icon="ZoomOut" />
                 <AppBarButton
+                    x:Uid="Draw_SaveImageButton"
                     BorderBrush="Transparent"
                     BorderThickness="0,0,0,0"
                     Click="SaveImage_Click"
-                    Icon="Save" />
+                    Icon="Save"
+                    IsEnabled="{Binding Content.SaveImageButtonIsEnabled, ElementName=shellFrame, Mode=OneWay}"
+                    Label="Save image" />
+                <AppBarButton
+                    x:Uid="Draw_SetImageButton"
+                    BorderBrush="Transparent"
+                    BorderThickness="0,0,0,0"
+                    Click="SetImage_Click"
+                    Icon="Accept"
+                    IsEnabled="{Binding Content.SaveImageButtonIsEnabled, ElementName=shellFrame, Mode=OneWay}"
+                    Label="Set as Background"
+                    ToolTipService.Placement="Mouse"
+                    ToolTipService.ToolTip="Set as Background" />
+
                 <AppBarSeparator />
                 <AppBarButton
                     BorderBrush="Transparent"

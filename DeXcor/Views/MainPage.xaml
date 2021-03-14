@@ -56,7 +56,7 @@
                             VerticalAlignment="Center"
                             FontSize="{StaticResource LargeFontSize}"
                             Foreground="White"
-                            Text="It's ok, we are working on it" />
+                            Text="It's ok🤞, we are working on it 😍" />
                     </StackPanel>
                 </controls:Loading>
                 <TextBlock

@@ -5,6 +5,7 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helper="using:DeXcor.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:PexelsDotNetSDK.Models"
     xmlns:src="using:DeXcor.Services"
@@ -12,7 +13,7 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Page.Resources>
-
+        <helper:EmojiConverter x:Key="EmojiConverter" />
         <DataTemplate x:Key="SearchHeader">
             <Grid HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
@@ -78,7 +79,10 @@
             SelectedItem="{Binding SelectedPivot, Mode=TwoWay}">
             <Pivot.HeaderTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Converter={StaticResource EmojiConverter}}" />
+                        <TextBlock Text="{Binding}" />
+                    </StackPanel>
                 </DataTemplate>
             </Pivot.HeaderTemplate>
         </Pivot>

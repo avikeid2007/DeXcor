@@ -30,18 +30,16 @@
             -->
             <winui:NavigationViewItem
                 helpers:NavHelper.NavigateTo="views:MainPage"
-                Content="Home"
-                Icon="Home" />
-            <winui:NavigationViewItem x:Uid="Shell_Gallery" helpers:NavHelper.NavigateTo="views:GalleryPage">
-                <winui:NavigationViewItem.Icon>
-                    <FontIcon Glyph="&#xEB9F;" />
-                </winui:NavigationViewItem.Icon>
-            </winui:NavigationViewItem>
-            <winui:NavigationViewItem x:Uid="Shell_Draw" helpers:NavHelper.NavigateTo="views:DrawPage">
-                <winui:NavigationViewItem.Icon>
-                    <FontIcon Glyph="&#xEE56;" />
-                </winui:NavigationViewItem.Icon>
-            </winui:NavigationViewItem>
+                Content="🏠  Home"
+                FontSize="{StaticResource MediumFontSize}" />
+            <winui:NavigationViewItem
+                helpers:NavHelper.NavigateTo="views:GalleryPage"
+                Content="🖼  Gallery"
+                FontSize="{StaticResource MediumFontSize}" />
+            <winui:NavigationViewItem
+                helpers:NavHelper.NavigateTo="views:DrawPage"
+                Content="🎨  Draw"
+                FontSize="{StaticResource MediumFontSize}" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior DefaultHeader="{x:Bind Selected.Content, Mode=OneWay}">
@@ -56,8 +54,8 @@
         </i:Interaction.Behaviors>
         <winui:NavigationView.PaneFooter>
             <NavigationViewItem
-                Content="Rate us"
-                Icon="Like"
+                Content="👍  Rate us"
+                FontSize="{StaticResource MediumFontSize}"
                 Tapped="NavigationViewItem_TappedAsync" />
         </winui:NavigationView.PaneFooter>
         <Grid>
