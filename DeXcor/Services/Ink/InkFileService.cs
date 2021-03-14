@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Microsoft.Graphics.Canvas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Microsoft.Graphics.Canvas;
-
 using Windows.Foundation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using Windows.Storage.Provider;
 using Windows.UI.Xaml.Controls;
 
 namespace DeXcor.Services.Ink
@@ -76,6 +73,11 @@ namespace DeXcor.Services.Ink
         {
             var saveFile = await GetImageToSaveAsync();
 
+            return await ExportFileWithImage(imageFile, saveFile);
+        }
+
+        public async Task<StorageFile> ExportFileWithImage(StorageFile imageFile, StorageFile saveFile)
+        {
             if (saveFile == null)
             {
                 return null;
@@ -115,7 +117,11 @@ namespace DeXcor.Services.Ink
         private async Task<StorageFile> ExportCanvasAsync()
         {
             var file = await GetImageToSaveAsync();
+            return await ExportFile(file);
+        }
 
+        public async Task<StorageFile> ExportFile(StorageFile file)
+        {
             if (file == null)
             {
                 return null;
@@ -142,9 +148,7 @@ namespace DeXcor.Services.Ink
             var savePicker = new FileSavePicker();
             savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             savePicker.FileTypeChoices.Add("PNG", new List<string>() { ".png" });
-            var saveFile = await savePicker.PickSaveFileAsync();
-
-            return saveFile;
+            return await savePicker.PickSaveFileAsync();
         }
     }
 }

@@ -105,12 +105,15 @@ namespace DeXcor.ViewModels
             get { return _selectedPivot; }
             set
             {
-                _selectedPivot = value;
-                needPagination = true;
-                SelectedPage = string.Empty;
-                TotalPages = null;
-                _ = SetWallpaperListAsync(value);
-                OnPropertyChanged();
+                if (value != null)
+                {
+                    _selectedPivot = value;
+                    needPagination = true;
+                    SelectedPage = string.Empty;
+                    TotalPages = null;
+                    OnPropertyChanged("SelectedPivot");
+                    _ = SetWallpaperListAsync(value);
+                }
             }
         }
 
@@ -147,6 +150,7 @@ namespace DeXcor.ViewModels
         public void Search()
         {
             needPagination = true;
+
             SelectedPivot = ImageDataService.PhotoType.FirstOrDefault(x => x.Equals("Search", StringComparison.OrdinalIgnoreCase));
         }
         private void SetPagination(PhotoPage page)

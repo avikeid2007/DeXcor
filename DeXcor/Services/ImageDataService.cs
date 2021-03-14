@@ -1,4 +1,6 @@
-﻿using PexelsDotNetSDK.Api;
+﻿using DeXcor.Helpers;
+using DeXcor.Models;
+using PexelsDotNetSDK.Api;
 using PexelsDotNetSDK.Models;
 using System;
 using System.Collections.Generic;
@@ -21,13 +23,20 @@ namespace DeXcor.Services
         {
             get
             {
-                yield return "Curated";
-                yield return "Landscapes";
-                yield return "Technology";
-                yield return "Nature";
-                yield return "Animals";
-                yield return "lifestyle";
-                yield return "Search";
+                return PhotoCatalogCollection.Select(x => x.PhotoType);
+            }
+        }
+        public static IEnumerable<PhotoCatalog> PhotoCatalogCollection
+        {
+            get
+            {
+                yield return new PhotoCatalog { PhotoType = "Curated", Emoji = "✨" };
+                yield return new PhotoCatalog { PhotoType = "Landscapes", Emoji = "🖼" };
+                yield return new PhotoCatalog { PhotoType = "Technology", Emoji = "🐱‍💻" };
+                yield return new PhotoCatalog { PhotoType = "Nature", Emoji = "🏞" };
+                yield return new PhotoCatalog { PhotoType = "Animals", Emoji = "🦙" };
+                yield return new PhotoCatalog { PhotoType = "lifestyle", Emoji = "🗽" };
+                yield return new PhotoCatalog { PhotoType = "Search", Emoji = "🔍" };
             }
         }
         public static async Task FetchHomeWallPaperListAsync(int page = 1, string keyword = "Landscapes")
@@ -42,8 +51,9 @@ namespace DeXcor.Services
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Telemetry.LogException(ex);
                 await new MessageDialog("Ops, Something went wrong.").ShowAsync();
             }
         }

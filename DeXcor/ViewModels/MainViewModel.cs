@@ -73,6 +73,7 @@ namespace DeXcor.ViewModels
                 }
                 catch (Exception ex)
                 {
+                    Telemetry.LogException(ex);
                     await DialogHelper.ShowDialogAsync("Something went wrong.");
                 }
                 finally

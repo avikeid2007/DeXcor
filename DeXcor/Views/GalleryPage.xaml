@@ -12,6 +12,7 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Page.Resources>
+
         <DataTemplate x:Key="SearchHeader">
             <Grid HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
@@ -74,7 +75,13 @@
             x:Name="RootPivot"
             ItemTemplate="{StaticResource Pagination}"
             ItemsSource="{x:Bind src:ImageDataService.PhotoType}"
-            SelectedItem="{Binding SelectedPivot, Mode=TwoWay}" />
+            SelectedItem="{Binding SelectedPivot, Mode=TwoWay}">
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" />
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
+        </Pivot>
         <GridView
             x:Name="ImgGridView"
             Grid.Row="1"

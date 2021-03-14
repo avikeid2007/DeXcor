@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeXcor", "DeXcor\DeXcor.csproj", "{7AB9B6DE-C6F4-4557-B704-30F2770EE09A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeXcor.Core", "DeXcor.Core\DeXcor.Core.csproj", "{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,26 +45,6 @@ Global
 		{7AB9B6DE-C6F4-4557-B704-30F2770EE09A}.Release|x86.ActiveCfg = Release|x86
 		{7AB9B6DE-C6F4-4557-B704-30F2770EE09A}.Release|x86.Build.0 = Release|x86
 		{7AB9B6DE-C6F4-4557-B704-30F2770EE09A}.Release|x86.Deploy.0 = Release|x86
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Debug|ARM.Build.0 = Debug|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Debug|x64.Build.0 = Debug|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Debug|x86.Build.0 = Debug|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Release|ARM.ActiveCfg = Release|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Release|ARM.Build.0 = Release|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Release|ARM64.Build.0 = Release|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Release|x64.ActiveCfg = Release|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Release|x64.Build.0 = Release|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Release|x86.ActiveCfg = Release|Any CPU
-		{4C6A6869-F933-4AC5-B6A1-D5D57A74D503}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

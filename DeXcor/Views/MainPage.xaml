@@ -19,7 +19,7 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Background" Value="#50000000" />
-            <Setter Property="BorderBrush" Value="#90000000" />
+            <Setter Property="BorderBrush" Value="#90ffffff" />
         </Style>
     </Page.Resources>
     <Grid x:Name="ContentArea">
@@ -40,7 +40,7 @@
                         Margin="48"
                         FontSize="40"
                         Style="{StaticResource TextBlockStyle}"
-                        Text="Change Desktop Background" />
+                        Text="Change Desktop Background 🎁" />
                 </Button>
                 <controls:Loading x:Name="LoadingControl" IsLoading="{x:Bind ViewModel.IsBusy, Mode=OneWay}">
                     <StackPanel Padding="12" Orientation="Horizontal">
@@ -56,7 +56,7 @@
                             VerticalAlignment="Center"
                             FontSize="{StaticResource LargeFontSize}"
                             Foreground="White"
-                            Text="It's ok, we are working on it :)" />
+                            Text="It's ok, we are working on it" />
                     </StackPanel>
                 </controls:Loading>
                 <TextBlock

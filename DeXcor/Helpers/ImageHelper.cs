@@ -73,10 +73,16 @@ namespace DeXcor.Helpers
                     return bitmapImage;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Telemetry.LogException(ex);
                 return null;
             }
+        }
+        public static async Task<StorageFile> CreateImageFile()
+        {
+            var storageFolder = ApplicationData.Current.LocalFolder;
+            return await storageFolder.CreateFileAsync("file.jpg", CreationCollisionOption.ReplaceExisting);
         }
 
     }

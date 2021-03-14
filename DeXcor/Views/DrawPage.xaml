@@ -52,6 +52,29 @@
                             BorderThickness="0,0,0,0"
                             Click="ZoomOut_Click"
                             Icon="ZoomOut" />
+                        <AppBarButton
+                            x:Uid="Draw_SaveImageButton"
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            Click="SaveImage_Click"
+                            Icon="Save"
+                            IsEnabled="{Binding Content.SaveImageButtonIsEnabled, ElementName=shellFrame, Mode=OneWay}"
+                            Label="Save image" />
+                        <AppBarButton
+                            x:Uid="Draw_SetImageButton"
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            Click="SetImage_Click"
+                            IsEnabled="{Binding Content.SaveImageButtonIsEnabled, ElementName=shellFrame, Mode=OneWay}"
+                            Label="Set as Background"
+                            ToolTipService.Placement="Mouse"
+                            ToolTipService.ToolTip="Set as Background">
+                            <AppBarButton.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE771;" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+
+
                     </CommandBar.PrimaryCommands>
                     <CommandBar.SecondaryCommands>
                         <AppBarButton
@@ -75,13 +98,7 @@
                             Click="LoadImage_Click">
                             <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xEB9F;" />
                         </AppBarButton>
-                        <AppBarButton
-                            x:Uid="Draw_SaveImageButton"
-                            BorderBrush="Transparent"
-                            BorderThickness="0,0,0,0"
-                            Click="SaveImage_Click"
-                            Icon="Save"
-                            IsEnabled="{Binding Content.SaveImageButtonIsEnabled, ElementName=shellFrame, Mode=OneWay}" />
+
                         <AppBarSeparator />
                         <AppBarButton
                             x:Uid="Draw_ClearAllButton"
@@ -151,6 +168,24 @@
                     BorderThickness="0,0,0,0"
                     Click="ZoomOut_Click"
                     Icon="ZoomOut" />
+                <AppBarButton
+                    BorderBrush="Transparent"
+                    BorderThickness="0,0,0,0"
+                    Click="SaveImage_Click"
+                    Icon="Save" />
+                <AppBarSeparator />
+                <AppBarButton
+                    BorderBrush="Transparent"
+                    BorderThickness="0,0,0,0"
+                    Click="SetImage_Click"
+                    IsEnabled="{Binding Content.SaveImageButtonIsEnabled, ElementName=shellFrame, Mode=OneWay}"
+                    Label="Set as Background"
+                    ToolTipService.Placement="Mouse"
+                    ToolTipService.ToolTip="Set as Background">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE771;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
                 <AppBarButton
@@ -174,13 +209,6 @@
                     Click="LoadImage_Click">
                     <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xEB9F;" />
                 </AppBarButton>
-                <AppBarButton
-                    x:Uid="Draw_SaveImageButton"
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    Click="SaveImage_Click"
-                    Icon="Save" />
-                <AppBarSeparator />
                 <AppBarButton
                     x:Uid="Draw_ClearAllButton"
                     BorderBrush="Transparent"

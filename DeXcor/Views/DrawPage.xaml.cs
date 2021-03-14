@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.System.UserProfile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -27,6 +28,7 @@ namespace DeXcor.Views
         private InkPointerDeviceService pointerDeviceService;
         private InkFileService fileService;
         private InkZoomService zoomService;
+        private bool isImageEdit;
 
         public DrawPage()
         {
@@ -50,7 +52,7 @@ namespace DeXcor.Views
             };
         }
 
-        private void OnInkToolbarLoaded(object sender, RoutedEventArgs e)
+        private void OnInkToolbarLoaded(object sender, RoutedEventArgs _)
         {
             if (sender is InkToolbar inkToolbar)
             {
@@ -61,11 +63,12 @@ namespace DeXcor.Views
         {
             if (e.Parameter is StorageFile file)
             {
-                LoadImageAsync(file);
+                isImageEdit = true;
+                _ = LoadImageAsync(file);
             }
             base.OnNavigatedTo(e);
         }
-        private void VisualStateGroup_CurrentStateChanged(object sender, VisualStateChangedEventArgs e) => SetNavigationViewHeaderTemplate();
+        private void VisualStateGroup_CurrentStateChanged(object _, VisualStateChangedEventArgs __) => SetNavigationViewHeaderTemplate();
 
         private void SetNavigationViewHeaderTemplate()
         {
@@ -174,11 +177,14 @@ namespace DeXcor.Views
         }
         private async Task LoadPlainAsync()
         {
-            StorageFolder InstallationFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            StorageFile file = await InstallationFolder.GetFileAsync(@"Assets\SampleData\plain.jpg");
-            if (file is not null)
+            if (!isImageEdit)
             {
-                await LoadImageAsync(file);
+                var InstallationFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+                var file = await InstallationFolder.GetFileAsync(@"Assets\SampleData\plain.jpg");
+                if (file != null)
+                {
+                    await LoadImageAsync(file);
+                }
             }
         }
         private async void SaveImage_Click(object _, RoutedEventArgs __) => await fileService?.ExportToImageAsync(imageFile);
@@ -213,5 +219,23 @@ namespace DeXcor.Views
         }
 
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        private async void SetImage_Click(object _, RoutedEventArgs __)
+        {
+            bool IsChanged;
+            if (isImageEdit)
+            {
+                IsChanged = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(imageFile);
+            }
+            else
+            {
+                var file = await fileService?.ExportFileWithImage(imageFile, await ImageHelper.CreateImageFile());
+                IsChanged = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file);
+            }
+            if (IsChanged)
+            {
+                await DialogHelper.ShowDialogAsync("This image has set as you PC background😍😍.", "PC Background Changed❤❤");
+            }
+        }
     }
 }

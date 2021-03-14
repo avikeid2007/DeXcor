@@ -2,8 +2,6 @@
 using System.IO;
 using System.Threading.Tasks;
 
-using DeXcor.Core.Helpers;
-
 using Windows.Storage;
 using Windows.Storage.Streams;
 
@@ -87,8 +85,7 @@ namespace DeXcor.Helpers
             if ((item != null) && item.IsOfType(StorageItemTypes.File))
             {
                 var storageFile = await folder.GetFileAsync(fileName);
-                byte[] content = await storageFile.ReadBytesAsync();
-                return content;
+                return await storageFile.ReadBytesAsync();
             }
 
             return null;

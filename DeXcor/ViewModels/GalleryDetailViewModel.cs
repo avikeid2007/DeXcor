@@ -19,11 +19,11 @@ namespace DeXcor.ViewModels
 
         private async Task OnEditCommandExecutedAsync()
         {
-            var storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            var sampleFile = await storageFolder.CreateFileAsync("file.jpg", Windows.Storage.CreationCollisionOption.ReplaceExisting);
-            if (SelectedImage != null && await ImageHelper.DownloadFileFromURLAsync(sampleFile, GetImageUrl("large")))
+            var sampleFile = await ImageHelper.CreateImageFile();
+            if (SelectedImage != null && await ImageHelper.DownloadFileFromURLAsync(sampleFile, GetImageUrl("large2x")))
                 NavigationService.Navigate(typeof(DrawPage), sampleFile);
         }
+
 
         private Photo _selectedImage;
         private bool _isBusy;
@@ -61,8 +61,9 @@ namespace DeXcor.ViewModels
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Telemetry.LogException(ex);
                 IsBusy = false;
                 await DialogHelper.ShowDialogAsync("Something went wrong.");
             }
@@ -87,12 +88,13 @@ namespace DeXcor.ViewModels
             {
                 IsBusy = true;
                 await BackgroundHelper.SetBackgroundAsync(SelectedImage, false);
-                await DialogHelper.ShowDialogAsync("This image has set as background.");
+                await DialogHelper.ShowDialogAsync("This image has set as you PC background😍😍.", "PC Background Changed❤❤");
                 IsBusy = false;
 
             }
-            catch
+            catch (Exception ex)
             {
+                Telemetry.LogException(ex);
                 IsBusy = false;
                 await DialogHelper.ShowDialogAsync("Something went wrong.");
             }

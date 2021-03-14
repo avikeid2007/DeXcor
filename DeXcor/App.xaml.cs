@@ -1,9 +1,5 @@
 ﻿using DeXcor.Services;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using System;
-using System.Configuration;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -23,7 +19,7 @@ namespace DeXcor
         public App()
         {
             InitializeComponent();
-            AppCenter.Start("47fe3125-c353-4605-99e8-706dee6980a1", typeof(Analytics), typeof(Crashes));
+            // AppCenter.Start("47fe3125-c353-4605-99e8-706dee6980a1", typeof(Analytics), typeof(Crashes));
             UnhandledException += OnAppUnhandledException;
             _activationService = new Lazy<ActivationService>(CreateActivationService);
             this.Suspending += OnSuspending;
@@ -32,8 +28,8 @@ namespace DeXcor
 
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            //var deferral = e.SuspendingOperation.GetDeferral();
-            //deferral.Complete();
+            var deferral = e.SuspendingOperation.GetDeferral();
+            deferral.Complete();
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -52,8 +48,7 @@ namespace DeXcor
 
         private void OnAppUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
-            // TODO WTS: Please log and handle the exception as appropriate to your scenario
-            // For more info see https://docs.microsoft.com/uwp/api/windows.ui.xaml.application.unhandledexception
+            //Telemetry.LogException(e.Exception, "Uncaught");
         }
 
         private ActivationService CreateActivationService()
@@ -62,7 +57,7 @@ namespace DeXcor
         }
         private static void GetApiKey()
         {
-            string apiKey = ConfigurationManager.AppSettings["apiKey"];
+            string apiKey = "563492ad6f91700001000001768850934594458b9990ea9808e8d8fb";
             if (!string.IsNullOrEmpty(apiKey))
             {
                 ImageDataService.ApiKey = apiKey;

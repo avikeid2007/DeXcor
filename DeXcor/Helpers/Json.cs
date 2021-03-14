@@ -1,7 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿
+using DeXcor.Services;
+using Newtonsoft.Json;
+using PexelsDotNetSDK.Models;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.System.UserProfile;
+using Windows.Web.Http;
 
-namespace DeXcor.Core.Helpers
+namespace DeXcor.Helpers
 {
     public static class Json
     {
