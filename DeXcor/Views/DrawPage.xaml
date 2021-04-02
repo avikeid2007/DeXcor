@@ -65,14 +65,11 @@
                             BorderBrush="Transparent"
                             BorderThickness="0,0,0,0"
                             Click="SetImage_Click"
+                            Icon="Accept"
                             IsEnabled="{Binding Content.SaveImageButtonIsEnabled, ElementName=shellFrame, Mode=OneWay}"
                             Label="Set as Background"
                             ToolTipService.Placement="Mouse"
-                            ToolTipService.ToolTip="Set as Background">
-                            <AppBarButton.Icon>
-                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE771;" />
-                            </AppBarButton.Icon>
-                        </AppBarButton>
+                            ToolTipService.ToolTip="Set as Background" />
 
 
                     </CommandBar.PrimaryCommands>

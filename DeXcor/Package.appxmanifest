@@ -10,7 +10,7 @@
   <Identity
     Name="34488AvnishKumar.DeXcor"
     Publisher="CN=1494B4FB-4349-4083-8AFA-16D2A64B8D99"
-    Version="1.0.1.0" />
+    Version="1.0.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="713df392-605c-44b6-9c3d-e7a39cc0c448" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
