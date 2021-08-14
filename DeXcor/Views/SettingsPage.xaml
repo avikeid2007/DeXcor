@@ -6,6 +6,8 @@
     xmlns:helper="using:DeXcor.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Windows.UI.Xaml"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Page.Resources>

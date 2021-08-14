@@ -8,6 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:PexelsDotNetSDK.Models"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
     KeyDown="OnPageKeyDown"
     mc:Ignorable="d">
     <Page.Resources>

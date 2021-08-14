@@ -60,7 +60,7 @@ namespace DeXcor
         }
         private static void GetApiKey()
         {
-            string apiKey = "Put your Api Key Here";
+            string apiKey = "563492ad6f91700001000001768850934594458b9990ea9808e8d8fb";
             if (!string.IsNullOrEmpty(apiKey))
             {
                 ImageDataService.ApiKey = apiKey;
