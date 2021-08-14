@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Windows.UI.Xaml"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:lottie="using:Microsoft.Toolkit.Uwp.UI.Lottie"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
@@ -61,7 +62,20 @@
                     x:Uid="Settings_AboutDescription"
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{ThemeResource BodyTextBlockStyle}" />
-
+                <StackPanel Orientation="Horizontal">
+                    <HyperlinkButton NavigateUri="https://github.com/avikeid2007/dexcor">
+                        <muxc:AnimatedVisualPlayer Height="48">
+                            <!--LottieVisualSource with JSON UriSource-->
+                            <lottie:LottieVisualSource  UriSource="ms-appx:///Assets/sampledata/github.json"/>
+                        </muxc:AnimatedVisualPlayer>
+                    </HyperlinkButton>
+                    <HyperlinkButton NavigateUri="https://twitter.com/dexcor_app" >
+                        <muxc:AnimatedVisualPlayer Height="48">
+                            <!--LottieVisualSource with JSON UriSource-->
+                            <lottie:LottieVisualSource  UriSource="ms-appx:///Assets/sampledata/icons8-twitter.json"/>
+                        </muxc:AnimatedVisualPlayer>
+                    </HyperlinkButton>
+                </StackPanel>
                 <HyperlinkButton x:Uid="Settings_PrivacyTermsLink" Margin="{StaticResource XSmallTopMargin}" />
             </StackPanel>
             <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Images License" />

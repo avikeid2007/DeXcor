@@ -12,7 +12,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     NavigationCacheMode="Required"
-    Style="{StaticResource PageStyle}"
+   
     mc:Ignorable="d">
     <Page.Resources>
         <helper:EmojiConverter x:Key="EmojiConverter" />

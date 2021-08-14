@@ -5,9 +5,10 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+        xmlns:lottie="using:Microsoft.Toolkit.Uwp.UI.Lottie"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Style="{StaticResource PageStyle}"
+   Loaded="Page_Loaded"
     mc:Ignorable="d">
     <Page.Resources>
         <Style x:Name="TextBlockStyle" TargetType="TextBlock">
@@ -23,6 +24,18 @@
             <Setter Property="Background" Value="#50000000" />
             <Setter Property="BorderBrush" Value="#90ffffff" />
         </Style>
+        <DataTemplate x:Key="SearchHeader">
+            <Grid HorizontalAlignment="Right">
+                <AppBarButton
+                   Height="44"
+                   
+                    Click="AppBarButton_Click"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                  
+                    Icon="Trim" />
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
     <Grid x:Name="ContentArea">
         <controls:TileControl
@@ -37,12 +50,19 @@
             ScrollOrientation="Both">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Command="{x:Bind ViewModel.ChangeBackgroundCommand}" Style="{StaticResource BorderStyle}">
-                    <TextBlock
+                    <StackPanel Orientation="Horizontal"  >
+                        <TextBlock
                         x:Name="BtnBackgroundText"
-                        Margin="48"
+                       
                         FontSize="40"
                         Style="{StaticResource TextBlockStyle}"
-                        Text="Change Desktop Background 🎁" />
+                        Text="Change Desktop Background" />
+                        <muxc:AnimatedVisualPlayer x:Name="playerLotti" Height="4">
+                            <!--LottieVisualSource with JSON UriSource-->
+                            <lottie:LottieVisualSource  UriSource="ms-appx:///Assets/sampledata/59347-gift-box.json"/>
+                        </muxc:AnimatedVisualPlayer>
+                    </StackPanel>
+
                 </Button>
                 <controls:Loading x:Name="LoadingControl" IsLoading="{x:Bind ViewModel.IsBusy, Mode=OneWay}">
                     <StackPanel Padding="12" Orientation="Horizontal">
@@ -146,8 +166,9 @@
                         <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="playerLotti.Height" Value="32" />
                         <Setter Target="BtnBackgroundText.FontSize" Value="16" />
-                        <Setter Target="BtnBackgroundText.Margin" Value="24" />
+                        <Setter Target="BtnBackgroundText.Margin" Value="4,24" />
                         <Setter Target="HeaderTxt.FontSize" Value="{StaticResource MediumFontSize}" />
                         <Setter Target="PhotoCtrl.Height" Value="36" />
                         <Setter Target="LinkBtn.FontSize" Value="{StaticResource SmallFontSize}" />
@@ -158,8 +179,9 @@
                         <AdaptiveTrigger MinWindowWidth="{StaticResource NormalMinWidth}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="playerLotti.Height" Value="40" />
                         <Setter Target="BtnBackgroundText.FontSize" Value="24" />
-                        <Setter Target="BtnBackgroundText.Margin" Value="32" />
+                        <Setter Target="BtnBackgroundText.Margin" Value="4,32" />
                         <Setter Target="HeaderTxt.FontSize" Value="{StaticResource MediumFontSize}" />
                         <Setter Target="PhotoCtrl.Height" Value="36" />
                         <Setter Target="LinkBtn.FontSize" Value="{StaticResource SmallFontSize}" />
@@ -180,8 +202,9 @@
                         <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="playerLotti.Height" Value="52" />
                         <Setter Target="BtnBackgroundText.FontSize" Value="32" />
-                        <Setter Target="BtnBackgroundText.Margin" Value="40" />
+                        <Setter Target="BtnBackgroundText.Margin" Value="8,40" />
                         <Setter Target="HeaderTxt.FontSize" Value="{StaticResource LargeFontSize}" />
                         <Setter Target="PhotoCtrl.Height" Value="44" />
                         <Setter Target="LinkBtn.FontSize" Value="{StaticResource MediumFontSize}" />
@@ -192,8 +215,9 @@
                         <AdaptiveTrigger MinWindowWidth="{StaticResource XWideMinWidth}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="playerLotti.Height" Value="60" />
                         <Setter Target="BtnBackgroundText.FontSize" Value="40" />
-                        <Setter Target="BtnBackgroundText.Margin" Value="48" />
+                        <Setter Target="BtnBackgroundText.Margin" Value="8,48" />
                         <Setter Target="HeaderTxt.FontSize" Value="{StaticResource LargeFontSize}" />
                         <Setter Target="PhotoCtrl.Height" Value="50" />
                         <Setter Target="LinkBtn.FontSize" Value="{StaticResource MediumFontSize}" />
