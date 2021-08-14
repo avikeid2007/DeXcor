@@ -4,8 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helper="using:DeXcor.Helpers"
+     xmlns:ser="using:DeXcor.Services"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Windows.UI.Xaml"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:lottie="using:Microsoft.Toolkit.Uwp.UI.Lottie"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Page.Resources>
@@ -17,7 +21,7 @@
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Theme" />
 
-                <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                <StackPanel Margin="{StaticResource XSmallTopMargin}" Orientation="Horizontal">
                     <RadioButton
                         x:Uid="Settings_Theme_Light"
                         Checked="ThemeChanged_CheckedAsync"
@@ -50,6 +54,14 @@
                     </RadioButton>
                 </StackPanel>
             </StackPanel>
+            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                <TextBlock Text="Default Wallpaper Type" />
+
+                <StackPanel Margin="{StaticResource XSmallTopMargin}" Orientation="Horizontal">
+                    <ComboBox x:Name="cbPhoto" ItemsSource="{x:Bind ser:ImageDataService.PhotoCatalogCollection}" PlaceholderText="Select Type" Width="148" DisplayMemberPath="PhotoType" SelectionChanged="ComboBox_SelectionChanged" />
+                    <TextBox x:Name="photoText" Width="200" Visibility="Collapsed" PlaceholderText="Enter text" TextChanged="photoText_TextChanged" Margin="16 0 0 0" />
+                </StackPanel>
+            </StackPanel>
 
             <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
@@ -59,7 +71,20 @@
                     x:Uid="Settings_AboutDescription"
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{ThemeResource BodyTextBlockStyle}" />
-
+                <StackPanel Orientation="Horizontal">
+                    <HyperlinkButton NavigateUri="https://github.com/avikeid2007/dexcor">
+                        <muxc:AnimatedVisualPlayer Height="48">
+                            <!--LottieVisualSource with JSON UriSource-->
+                            <lottie:LottieVisualSource  UriSource="ms-appx:///Assets/sampledata/github.json"/>
+                        </muxc:AnimatedVisualPlayer>
+                    </HyperlinkButton>
+                    <HyperlinkButton NavigateUri="https://twitter.com/dexcor_app" >
+                        <muxc:AnimatedVisualPlayer Height="48">
+                            <!--LottieVisualSource with JSON UriSource-->
+                            <lottie:LottieVisualSource  UriSource="ms-appx:///Assets/sampledata/icons8-twitter.json"/>
+                        </muxc:AnimatedVisualPlayer>
+                    </HyperlinkButton>
+                </StackPanel>
                 <HyperlinkButton x:Uid="Settings_PrivacyTermsLink" Margin="{StaticResource XSmallTopMargin}" />
             </StackPanel>
             <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Images License" />

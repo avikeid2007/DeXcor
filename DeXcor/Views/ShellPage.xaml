@@ -9,6 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:DeXcor.Views"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="OnLoaded"
     mc:Ignorable="d">
 
