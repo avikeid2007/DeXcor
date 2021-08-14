@@ -1,12 +1,12 @@
-﻿using System;
+﻿using DeXcor.Helpers;
+using DeXcor.Models;
+using DeXcor.Services;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-
-using DeXcor.Helpers;
-using DeXcor.Services;
-
 using Windows.ApplicationModel;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -43,6 +43,21 @@ namespace DeXcor.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             await InitializeAsync();
+            string type = await ApplicationData.Current.LocalSettings.ReadAsync<string>("PhotoType");
+            if (!string.IsNullOrEmpty(type))
+            {
+                var item = ImageDataService.PhotoCatalogCollection.FirstOrDefault(x => x.PhotoType == type);
+                if (item != null)
+                {
+                    cbPhoto.SelectedItem = item;
+                }
+                else
+                {
+                    cbPhoto.SelectedItem = ImageDataService.PhotoCatalogCollection.FirstOrDefault(x => x.PhotoType.Equals("Search", System.StringComparison.OrdinalIgnoreCase));
+                    photoText.Text = type;
+                }
+            }
+
         }
 
         private async Task InitializeAsync()
@@ -73,7 +88,7 @@ namespace DeXcor.Views
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
+        private void Set<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             if (Equals(storage, value))
             {
@@ -85,5 +100,31 @@ namespace DeXcor.Views
         }
 
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox cb && cb.SelectedItem is PhotoCatalog type && !string.IsNullOrEmpty(type?.PhotoType))
+            {
+                if (type.PhotoType.Equals("Search", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    photoText.Visibility = Visibility.Visible;
+                    await ApplicationData.Current.LocalSettings.SaveAsync("PhotoType", string.Empty);
+                }
+                else
+                {
+                    photoText.Visibility = Visibility.Collapsed;
+                    await ApplicationData.Current.LocalSettings.SaveAsync("PhotoType", type.PhotoType);
+
+                }
+            }
+        }
+
+        private async void photoText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is TextBox tb && !string.IsNullOrEmpty(tb.Text))
+            {
+                await ApplicationData.Current.LocalSettings.SaveAsync("PhotoType", tb.Text);
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helper="using:DeXcor.Helpers"
+     xmlns:ser="using:DeXcor.Services"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Windows.UI.Xaml"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -20,7 +21,7 @@
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Theme" />
 
-                <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                <StackPanel Margin="{StaticResource XSmallTopMargin}" Orientation="Horizontal">
                     <RadioButton
                         x:Uid="Settings_Theme_Light"
                         Checked="ThemeChanged_CheckedAsync"
@@ -51,6 +52,14 @@
                             <xaml:ElementTheme>Default</xaml:ElementTheme>
                         </RadioButton.CommandParameter>
                     </RadioButton>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                <TextBlock Text="Default Wallpaper Type" />
+
+                <StackPanel Margin="{StaticResource XSmallTopMargin}" Orientation="Horizontal">
+                    <ComboBox x:Name="cbPhoto" ItemsSource="{x:Bind ser:ImageDataService.PhotoCatalogCollection}" PlaceholderText="Select Type" Width="148" DisplayMemberPath="PhotoType" SelectionChanged="ComboBox_SelectionChanged" />
+                    <TextBox x:Name="photoText" Width="200" Visibility="Collapsed" PlaceholderText="Enter text" TextChanged="photoText_TextChanged" Margin="16 0 0 0" />
                 </StackPanel>
             </StackPanel>
 
