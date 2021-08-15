@@ -1,9 +1,12 @@
 ﻿using BasicMvvm;
 using BasicMvvm.Commands;
+
 using DeXcor.Helpers;
 using DeXcor.Services;
 using DeXcor.Views;
+
 using PexelsDotNetSDK.Models;
+
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -21,7 +24,9 @@ namespace DeXcor.ViewModels
         {
             var sampleFile = await ImageHelper.CreateImageFile();
             if (SelectedImage != null && await ImageHelper.DownloadFileFromURLAsync(sampleFile, GetImageUrl("large2x")))
+            {
                 NavigationService.Navigate(typeof(DrawPage), sampleFile);
+            }
         }
 
 

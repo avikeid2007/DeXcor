@@ -1,11 +1,15 @@
 ﻿using DeXcor.Helpers;
 using DeXcor.Models;
+
 using PexelsDotNetSDK.Api;
 using PexelsDotNetSDK.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Windows.Storage;
 using Windows.UI.Popups;
 
 namespace DeXcor.Services
@@ -55,6 +59,19 @@ namespace DeXcor.Services
             {
                 Telemetry.LogException(ex);
                 await new MessageDialog("Ops, Something went wrong.").ShowAsync();
+            }
+        }
+        public static async Task FillHomeWallpaperList()
+        {
+            string type = await ApplicationData.Current.LocalSettings.ReadAsync<string>("PhotoType");
+
+            if (string.IsNullOrEmpty(type))
+            {
+                await ImageDataService.FetchHomeWallPaperListAsync(new Random().Next(1, 5));
+            }
+            else
+            {
+                await ImageDataService.FetchHomeWallPaperListAsync(new Random().Next(1, 5), type);
             }
         }
         public static async Task<PhotoPage> FetchCuratedListAsync(int page = 1)

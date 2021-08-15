@@ -1,16 +1,19 @@
 ﻿using DeXcor.Helpers;
 using DeXcor.Services;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace DeXcor.Views
@@ -94,6 +97,7 @@ namespace DeXcor.Views
             if (args.IsSettingsInvoked)
             {
                 NavigationService.Navigate(typeof(SettingsPage), null, args.RecommendedNavigationTransitionInfo);
+
             }
             else if (args.InvokedItemContainer is WinUI.NavigationViewItem selectedItem)
             {

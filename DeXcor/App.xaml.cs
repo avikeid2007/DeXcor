@@ -1,7 +1,12 @@
 ﻿using DeXcor.Services;
+
+using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+
 using System;
 using System.Collections.Generic;
+
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -25,7 +30,7 @@ namespace DeXcor
             _activationService = new Lazy<ActivationService>(CreateActivationService);
             this.Suspending += OnSuspending;
             GetApiKey();
-            // AppCenter.Start("f75c43b4-187d-4656-9e53-2ae09c511c51", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("f75c43b4-187d-4656-9e53-2ae09c511c51", typeof(Analytics), typeof(Crashes));
         }
 
         private void OnSuspending(object sender, SuspendingEventArgs e)
@@ -38,7 +43,7 @@ namespace DeXcor
         {
             if (!args.PrelaunchActivated)
             {
-                await ImageDataService.FetchHomeWallPaperListAsync(new Random().Next(1, 5));
+                await ImageDataService.FillHomeWallpaperList();
                 await ActivationService.ActivateAsync(args);
             }
         }
@@ -60,7 +65,7 @@ namespace DeXcor
         }
         private static void GetApiKey()
         {
-            string apiKey = "563492ad6f91700001000001768850934594458b9990ea9808e8d8fb";
+            string apiKey = "Put Your Key Here";
             if (!string.IsNullOrEmpty(apiKey))
             {
                 ImageDataService.ApiKey = apiKey;
