@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using DeXcor.Services;
 
-using DeXcor.Services;
+using System;
+using System.Threading.Tasks;
 
 using Windows.ApplicationModel.Activation;
 

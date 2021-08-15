@@ -55,10 +55,10 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
-                <TextBlock Text="Default Wallpaper Type" />
+                <TextBlock Text="preferred Wallpaper category" />
 
                 <StackPanel Margin="{StaticResource XSmallTopMargin}" Orientation="Horizontal">
-                    <ComboBox x:Name="cbPhoto" ItemsSource="{x:Bind ser:ImageDataService.PhotoCatalogCollection}" PlaceholderText="Select Type" Width="148" DisplayMemberPath="PhotoType" SelectionChanged="ComboBox_SelectionChanged" />
+                    <ComboBox x:Name="cbPhoto" PlaceholderText="Select Type" Width="148" DisplayMemberPath="PhotoType" SelectionChanged="ComboBox_SelectionChanged" />
                     <TextBox x:Name="photoText" Width="200" Visibility="Collapsed" PlaceholderText="Enter text" TextChanged="photoText_TextChanged" Margin="16 0 0 0" />
                 </StackPanel>
             </StackPanel>

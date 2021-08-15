@@ -1,10 +1,12 @@
 ﻿using DeXcor.Helpers;
 using DeXcor.Models;
 using DeXcor.Services;
+
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+
 using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.UI.Xaml;
@@ -27,6 +29,7 @@ namespace DeXcor.Views
         }
 
         private string _versionDescription;
+        private bool isTypeChanged;
 
         public string VersionDescription
         {
@@ -43,23 +46,34 @@ namespace DeXcor.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             await InitializeAsync();
+            var homeIndex = ImageDataService.PhotoCatalogCollection.ToList().FindIndex(x => x.PhotoType.Equals("Search", System.StringComparison.OrdinalIgnoreCase));
+            var collection = ImageDataService.PhotoCatalogCollection.ToList();
+            collection.RemoveAt(homeIndex);
+            cbPhoto.ItemsSource = collection;
             string type = await ApplicationData.Current.LocalSettings.ReadAsync<string>("PhotoType");
             if (!string.IsNullOrEmpty(type))
             {
-                var item = ImageDataService.PhotoCatalogCollection.FirstOrDefault(x => x.PhotoType == type);
-                if (item != null)
+                var item = ImageDataService.PhotoCatalogCollection.ToList().FindIndex(x => x.PhotoType == type);
+                if (item >= 0)
                 {
-                    cbPhoto.SelectedItem = item;
+                    cbPhoto.SelectedIndex = item;
                 }
                 else
                 {
-                    cbPhoto.SelectedItem = ImageDataService.PhotoCatalogCollection.FirstOrDefault(x => x.PhotoType.Equals("Search", System.StringComparison.OrdinalIgnoreCase));
+                    cbPhoto.SelectedIndex = homeIndex;
                     photoText.Text = type;
                 }
             }
 
         }
-
+        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            if (isTypeChanged)
+            {
+                await ImageDataService.FillHomeWallpaperList();
+            }
+            base.OnNavigatingFrom(e);
+        }
         private async Task InitializeAsync()
         {
             VersionDescription = GetVersionDescription();
@@ -114,6 +128,7 @@ namespace DeXcor.Views
                 {
                     photoText.Visibility = Visibility.Collapsed;
                     await ApplicationData.Current.LocalSettings.SaveAsync("PhotoType", type.PhotoType);
+                    isTypeChanged = true;
 
                 }
             }

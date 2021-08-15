@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DeXcor.Helpers;
+
+using System;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -69,7 +71,7 @@ namespace DeXcor.Services
                 {
                     _lastParamUsed = parameter;
                 }
-
+                Telemetry.TrackNavigate(pageType, parameter);
                 return navigationResult;
             }
             else
