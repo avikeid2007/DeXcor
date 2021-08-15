@@ -4,7 +4,8 @@
 <img src="https://raw.githubusercontent.com/avikeid2007/DeXcor/master/Screenshot/DeXcor-logo.png" alt="Ping legacy" width="60">
  
  <a href='https://www.microsoft.com/store/apps/9MXBN5NH4J95'><img src='https://raw.githubusercontent.com/avikeid2007/WinDev-Utility/dev/ScreenShots/store.png' alt='English badge' width="150" /></a>
-
+ <br/>
+ <a href='https://twitter.com/dexcor_app'><img src='https://raw.githubusercontent.com/avikeid2007/DeXcor/master/Screenshot/icons8-twitter.gif' alt='twitter' width="48" /></a>
 </h1>
 
 <h4 align="center">  
