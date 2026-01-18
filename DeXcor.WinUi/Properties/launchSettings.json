@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DeXcor.WinUi (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "DeXcor.WinUi (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

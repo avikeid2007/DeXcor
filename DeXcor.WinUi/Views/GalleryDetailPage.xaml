@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="DeXcor.WinUi.Views.GalleryDetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:PexelsDotNetSDK.Models">
+
+    <Grid Background="#1a1a2e">
+        <!-- Full Image -->
+        <Image 
+            x:Name="DetailImage"
+            Source="{x:Bind Photo.source.large2x, Mode=OneWay}"
+            Stretch="Uniform"/>
+
+        <!-- Top Action Bar -->
+        <Border 
+            VerticalAlignment="Top"
+            Padding="16,12"
+            Background="#80000000">
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Back Button -->
+                <Button 
+                    Click="Back_Click"
+                    Background="Transparent"
+                    BorderThickness="0">
+                    <FontIcon Glyph="&#xE72B;" FontSize="20"/>
+                </Button>
+
+                <!-- Photographer Info -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="16" Margin="16,0">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon Glyph="&#xE722;" FontSize="14" Opacity="0.7"/>
+                        <TextBlock x:Name="PhotographerText" Foreground="White"/>
+                    </StackPanel>
+                    
+                    <TextBlock x:Name="DimensionsText" Opacity="0.7" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Actions -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8">
+                    
+                    <!-- Download Dropdown -->
+                    <DropDownButton Content="Download">
+                        <DropDownButton.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="Original" Click="Download_Click" Tag="original"/>
+                                <MenuFlyoutItem Text="Large" Click="Download_Click" Tag="large"/>
+                                <MenuFlyoutItem Text="Medium" Click="Download_Click" Tag="medium"/>
+                                <MenuFlyoutItem Text="Small" Click="Download_Click" Tag="small"/>
+                            </MenuFlyout>
+                        </DropDownButton.Flyout>
+                    </DropDownButton>
+
+                    <!-- Edit Button -->
+                    <Button Click="Edit_Click" ToolTipService.ToolTip="Edit &amp; Draw">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE70F;" FontSize="16"/>
+                            <TextBlock Text="Edit"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Set Wallpaper -->
+                    <Button 
+                        Click="SetWallpaper_Click" 
+                        Style="{StaticResource AccentButtonStyle}"
+                        ToolTipService.ToolTip="Set as Desktop Wallpaper">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE8A9;" FontSize="16"/>
+                            <TextBlock Text="Set as Wallpaper"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Navigation Arrows -->
+        <Button 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center"
+            Background="#40000000"
+            BorderThickness="0"
+            Margin="16"
+            Padding="12,24"
+            Click="Previous_Click">
+            <FontIcon Glyph="&#xE76B;" FontSize="24"/>
+        </Button>
+        
+        <Button 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center"
+            Background="#40000000"
+            BorderThickness="0"
+            Margin="16"
+            Padding="12,24"
+            Click="Next_Click">
+            <FontIcon Glyph="&#xE76C;" FontSize="24"/>
+        </Button>
+
+        <!-- Loading Overlay -->
+        <Border 
+            x:Name="LoadingOverlay"
+            Background="#80000000"
+            Visibility="Collapsed">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressRing IsActive="True" Width="48" Height="48"/>
+                <TextBlock x:Name="LoadingText" Text="Setting wallpaper..." Margin="0,16,0,0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

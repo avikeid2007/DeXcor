@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="DeXcor.WinUi.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    NavigationCacheMode="Required">
+
+    <ScrollViewer Padding="24">
+        <StackPanel MaxWidth="800" Spacing="24">
+
+            <!--  Header  -->
+            <TextBlock
+                FontSize="{StaticResource TitleFontSize}"
+                FontWeight="SemiBold"
+                Text="Settings" />
+
+            <!--  API Key Section  -->
+            <StackPanel Spacing="8">
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Text="Pexels API Key" />
+                <TextBlock Opacity="0.7" Text="Get your free API key from pexels.com/api" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <PasswordBox
+                        x:Name="ApiKeyBox"
+                        MaxWidth="400"
+                        HorizontalAlignment="Left"
+                        PasswordRevealMode="Peek"
+                        PlaceholderText="Enter your Pexels API key" />
+
+                    <Button
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        Click="SaveApiKey_Click"
+                        Content="Save"
+                        Style="{StaticResource AccentButtonStyle}" />
+                </Grid>
+
+                <HyperlinkButton Content="Get API Key →" NavigateUri="https://www.pexels.com/api/" />
+            </StackPanel>
+
+            <MenuFlyoutSeparator />
+
+            <!--  Theme Section  -->
+            <StackPanel Spacing="8">
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Text="Appearance" />
+
+                <RadioButtons x:Name="ThemeRadioButtons" SelectionChanged="ThemeRadioButtons_SelectionChanged">
+                    <RadioButton Content="Light" Tag="Light" />
+                    <RadioButton Content="Dark" Tag="Dark" />
+                    <RadioButton Content="Windows default" Tag="Default" />
+                </RadioButtons>
+            </StackPanel>
+
+            <MenuFlyoutSeparator />
+
+            <!--  Downloads Section  -->
+            <StackPanel Spacing="8">
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Text="Downloads" />
+
+                <Button Click="OpenDownloadsFolder_Click">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon FontSize="16" Glyph="&#xE838;" />
+                            <TextBlock Text="Open Downloads Folder" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+
+            <MenuFlyoutSeparator />
+
+            <!--  About Section  -->
+            <StackPanel Spacing="8">
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Text="About" />
+
+                <TextBlock x:Name="VersionText" Opacity="0.7" />
+
+                <TextBlock Opacity="0.7" TextWrapping="Wrap">
+                    DeXcor helps you discover and set beautiful wallpapers from Pexels'
+                    collection of high-quality, royalty-free images.
+                </TextBlock>
+
+                <StackPanel
+                    Margin="0,8,0,0"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <HyperlinkButton Content="GitHub" NavigateUri="https://github.com/avikeid2007/dexcor" />
+                    <HyperlinkButton Content="Privacy Policy" NavigateUri="https://github.com/avikeid2007/dexcor/blob/master/PRIVACY.md" />
+                </StackPanel>
+            </StackPanel>
+
+            <MenuFlyoutSeparator />
+
+            <!--  Pexels Attribution  -->
+            <StackPanel Spacing="8">
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Text="Image License" />
+
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <Image
+                        Height="24"
+                        Opacity="0.8"
+                        Source="ms-appx:///Assets/pexels-logo.png" />
+                    <TextBlock VerticalAlignment="Center" Opacity="0.7">
+                        All photos provided by Pexels are free to use.
+                    </TextBlock>
+                </StackPanel>
+
+                <HyperlinkButton Content="Pexels License" NavigateUri="https://www.pexels.com/license/" />
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

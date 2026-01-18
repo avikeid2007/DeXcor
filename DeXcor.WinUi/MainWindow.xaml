@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="DeXcor.WinUi.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="DeXcor">
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Custom Title Bar -->
+        <Grid x:Name="AppTitleBar" Height="32" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Image Source="Assets/StoreLogo.png" Width="16" Height="16" Margin="12,0,8,0"/>
+            <TextBlock Grid.Column="1" 
+                       Text="DeXcor" 
+                       VerticalAlignment="Center" 
+                       Style="{StaticResource CaptionTextBlockStyle}"/>
+        </Grid>
+
+        <!-- Navigation Shell -->
+        <NavigationView 
+            x:Name="NavView"
+            Background="Transparent"
+            Grid.Row="1"
+            IsBackButtonVisible="Auto"
+            IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
+            IsPaneOpen="True"
+            PaneDisplayMode="Left"
+            OpenPaneLength="200"
+            IsSettingsVisible="False"
+            BackRequested="NavView_BackRequested"
+            SelectionChanged="NavView_SelectionChanged">
+            
+            <NavigationView.Resources>
+                <!-- Enhanced Acrylic for Navigation Pane -->
+                <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground" 
+                              TintColor="#1a1a2e" 
+                              TintOpacity="0.6" 
+                              FallbackColor="#1a1a2e"/>
+                <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground" 
+                              TintColor="#1a1a2e" 
+                              TintOpacity="0.6" 
+                              FallbackColor="#1a1a2e"/>
+            </NavigationView.Resources>
+
+            <NavigationView.MenuItems>
+                <NavigationViewItem Tag="Home" Content="Home">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE80F;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem Tag="Gallery" Content="Gallery">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8B9;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem Tag="Collections" Content="Collections">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8B7;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem Tag="Downloads" Content="Downloads">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE896;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem Tag="InkStudio" Content="Ink Studio">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xEE56;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Tag="Settings" Content="Settings">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE713;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
+
+            <!-- Page Content -->
+            <Frame x:Name="ContentFrame" Background="Transparent"/>
+            
+        </NavigationView>
+    </Grid>
+</Window>

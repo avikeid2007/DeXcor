@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="DeXcor.WinUi.Views.GalleryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:PexelsDotNetSDK.Models"
+    xmlns:vm="using:DeXcor.WinUi.ViewModels"
+    NavigationCacheMode="Required">
+
+    <Page.Resources>
+        <Style x:Key="PillRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#40FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Margin" Value="4,0"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Target="RootBorder.Background" Value="#20FFFFFF"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <VisualState.Setters>
+                                            <Setter Target="RootBorder.Background" Value="#10FFFFFF"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <VisualState.Setters>
+                                            <Setter Target="RootBorder.Background" Value="#F59E0B"/>
+                                            <Setter Target="RootBorder.BorderBrush" Value="#F59E0B"/>
+                                            <Setter Target="ContentPresenter.Foreground" Value="Black"/>
+                                            <Setter Target="ContentPresenter.FontWeight" Value="SemiBold"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter" 
+                                            Content="{TemplateBinding Content}"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <!-- Dark Background -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#1a1a2e" Offset="0"/>
+                <GradientStop Color="#16213e" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid Padding="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--  Category Pills  -->
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Auto" Margin="0,0,0,16">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" IsChecked="True" Checked="Category_Checked" Tag="curated">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE728;" FontSize="14"/>
+                            <TextBlock Text="Curated"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" Checked="Category_Checked" Tag="landscapes">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE8B5;" FontSize="14"/>
+                            <TextBlock Text="Landscapes"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" Checked="Category_Checked" Tag="technology">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE8D7;" FontSize="14"/>
+                            <TextBlock Text="Technology"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" Checked="Category_Checked" Tag="nature">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE774;" FontSize="14"/>
+                            <TextBlock Text="Nature"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" Checked="Category_Checked" Tag="animals">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE7BF;" FontSize="14"/>
+                            <TextBlock Text="Animals"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" Checked="Category_Checked" Tag="city">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE913;" FontSize="14"/>
+                            <TextBlock Text="City"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" Checked="Category_Checked" Tag="abstract">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE790;" FontSize="14"/>
+                            <TextBlock Text="Abstract"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" Checked="Category_Checked" Tag="food">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xED56;" FontSize="14"/>
+                            <TextBlock Text="Food"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" Checked="Category_Checked" Tag="travel">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xEB9F;" FontSize="14"/>
+                            <TextBlock Text="Travel"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" Checked="Category_Checked" Tag="ocean">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE8AF;" FontSize="14"/>
+                            <TextBlock Text="Ocean"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" Checked="Category_Checked" Tag="mountains">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE8C4;" FontSize="14"/>
+                            <TextBlock Text="Mountains"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Category" Checked="Category_Checked" Tag="search">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE721;" FontSize="14"/>
+                            <TextBlock Text="Search"/>
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!--  Filters Bar  -->
+            <Grid Grid.Row="1" Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Filters  -->
+                <StackPanel
+                    Grid.Column="0"
+                    Orientation="Horizontal"
+                    Spacing="24">
+                    
+                    <!-- Orientation -->
+                    <StackPanel Orientation="Vertical" Spacing="8">
+                        <TextBlock Text="Orientation" Foreground="#A0FFFFFF" FontSize="12"/>
+                        <StackPanel Orientation="Horizontal" Spacing="0">
+                            <RadioButton Style="{StaticResource PillRadioButtonStyle}" IsChecked="True" GroupName="Orientation">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <FontIcon Glyph="&#xE738;" FontSize="12"/>
+                                    <TextBlock Text="Landscape"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Orientation">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <FontIcon Glyph="&#xE73F;" FontSize="12"/>
+                                    <TextBlock Text="Portrait"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton Style="{StaticResource PillRadioButtonStyle}" GroupName="Orientation">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <FontIcon Glyph="&#xE73B;" FontSize="12"/>
+                                    <TextBlock Text="Square"/>
+                                </StackPanel>
+                            </RadioButton>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Divider -->
+                    <Rectangle Width="1" Fill="#20FFFFFF" Height="32" VerticalAlignment="Bottom" Margin="0,8"/>
+
+                    <!-- Color -->
+                    <StackPanel Orientation="Vertical" Spacing="8">
+                        <TextBlock Text="Color" Foreground="#A0FFFFFF" FontSize="12"/>
+                        <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                            <Button Padding="0" CornerRadius="15" BorderThickness="0" Background="Transparent" Width="30" Height="30">
+                                <Image Source="ms-appx:///Assets/ColorWheel.png" Width="30" Height="30"/>
+                            </Button>
+                            <Ellipse Width="24" Height="24" Fill="#F59E0B" StrokeThickness="2" Stroke="#FFFFFF" ToolTipService.ToolTip="Selected Color"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <!-- Divider -->
+                    <Rectangle Width="1" Fill="#20FFFFFF" Height="32" VerticalAlignment="Bottom" Margin="0,8"/>
+
+                    <!-- Size -->
+                    <StackPanel Orientation="Vertical" Spacing="8">
+                        <TextBlock Text="Size" Foreground="#A0FFFFFF" FontSize="12"/>
+                        <ComboBox
+                            Width="140"
+                            PlaceholderText="Any Size"
+                            Background="#10FFFFFF"
+                            BorderBrush="#30FFFFFF"
+                            CornerRadius="8"
+                            ItemsSource="{x:Bind ViewModel.Sizes}"
+                            SelectedItem="{x:Bind ViewModel.SelectedSize, Mode=TwoWay}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Search -->
+                <AutoSuggestBox
+                    Grid.Column="1"
+                    Width="240"
+                    VerticalAlignment="Bottom"
+                    PlaceholderText="Search"
+                    QueryIcon="Find"
+                    Text="{x:Bind ViewModel.SearchQuery, Mode=TwoWay}" />
+            </Grid>
+
+            <!--  Loading Indicator  -->
+            <ProgressBar
+                Grid.Row="2"
+                VerticalAlignment="Top"
+                IsIndeterminate="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+
+            <!--  Gallery Grid  -->
+            <GridView
+                Grid.Row="2"
+                Margin="0,8,0,0"
+                IsItemClickEnabled="True"
+                ItemClick="GalleryItem_Click"
+                ItemsSource="{x:Bind ViewModel.Photos}"
+                SelectionMode="None">
+
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Photo">
+                        <Grid
+                            Width="280"
+                            Height="180"
+                            CornerRadius="16"
+                            Margin="4"
+                            PointerEntered="PhotoCard_PointerEntered"
+                            PointerExited="PhotoCard_PointerExited">
+
+                            <!-- Context Menu -->
+                            <Grid.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Set as Wallpaper" Icon="Pictures" Click="ContextSetWallpaper_Click"/>
+                                    <MenuFlyoutSubItem Text="Download">
+                                        <MenuFlyoutItem Text="Original" Tag="original" Click="ContextDownload_Click"/>
+                                        <MenuFlyoutItem Text="Large (2x)" Tag="large2x" Click="ContextDownload_Click"/>
+                                        <MenuFlyoutItem Text="Large" Tag="large" Click="ContextDownload_Click"/>
+                                        <MenuFlyoutItem Text="Medium" Tag="medium" Click="ContextDownload_Click"/>
+                                    </MenuFlyoutSubItem>
+                                    <MenuFlyoutSeparator/>
+                                    <MenuFlyoutItem Text="Edit in Ink Studio" Click="ContextEdit_Click">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xEE56;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutSeparator/>
+                                    <MenuFlyoutItem Text="Open in Browser" Click="ContextOpenBrowser_Click">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xE774;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
+                            </Grid.ContextFlyout>
+
+                            <!--  Image  -->
+                            <Border CornerRadius="16">
+                                <Image Source="{x:Bind source.medium}" Stretch="UniformToFill" />
+                            </Border>
+
+                            <!--  Gradient Overlay  -->
+                            <Border VerticalAlignment="Bottom" CornerRadius="0,0,16,16">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="Transparent" />
+                                        <GradientStop Offset="1" Color="#B0000000" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <TextBlock
+                                    Padding="12,8"
+                                    FontSize="13"
+                                    Foreground="White"
+                                    FontWeight="Medium"
+                                    Text="{x:Bind photographer}" />
+                            </Border>
+
+                            <!--  Quick Actions (shown on hover)  -->
+                            <Border
+                                x:Name="QuickActionsOverlay"
+                                Background="#80000000"
+                                CornerRadius="16"
+                                Visibility="Collapsed">
+                                <StackPanel
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    Spacing="12">
+
+                                    <Button CornerRadius="20" Click="QuickSetWallpaper_Click" Background="{StaticResource AccentBrush}" BorderThickness="0" Padding="16,10">
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <FontIcon FontSize="16" Glyph="&#xE8A9;" Foreground="Black"/>
+                                            <TextBlock Text="Set Wallpaper" FontWeight="SemiBold" Foreground="Black"/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <Button CornerRadius="20" Click="QuickDownload_Click" Background="Transparent" BorderBrush="White" BorderThickness="1" Padding="16,10">
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <FontIcon FontSize="16" Glyph="&#xE896;" Foreground="White"/>
+                                            <TextBlock Text="Download" FontWeight="SemiBold" Foreground="White"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid MaximumRowsOrColumns="6" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+            </GridView>
+
+            <!--  Pagination  -->
+            <StackPanel
+                Grid.Row="3"
+                Padding="16"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="16">
+
+                <Button
+                    Command="{x:Bind ViewModel.PreviousPageCommand}"
+                    Content="Previous"
+                    CornerRadius="8"
+                    IsEnabled="{x:Bind ViewModel.CurrentPage, Mode=OneWay, Converter={StaticResource GreaterThanOneConverter}}" />
+
+                <TextBlock VerticalAlignment="Center" Foreground="White">
+                    <Run Text="Page " />
+                    <Run Text="{x:Bind ViewModel.CurrentPage, Mode=OneWay}" />
+                    <Run Text=" of " />
+                    <Run Text="{x:Bind ViewModel.TotalPages, Mode=OneWay}" />
+                </TextBlock>
+
+                <Button Command="{x:Bind ViewModel.NextPageCommand}" Content="Next" CornerRadius="8"/>
+            </StackPanel>
+
+            <!--  Pexels Attribution  -->
+            <Border
+                Grid.Row="2"
+                Margin="16"
+                Padding="12,6"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Background="#50000000"
+                CornerRadius="8">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock Text="P" FontSize="14" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
+                    <TextBlock FontSize="12" Foreground="White" Opacity="0.8" Text="Pexels" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>
+
